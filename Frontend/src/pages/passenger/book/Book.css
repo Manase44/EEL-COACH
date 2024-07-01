@@ -1,0 +1,131 @@
+.booking-details-section {
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  place-content: center;
+}
+.booking-details-form,
+.available-routes-container {
+  background-color: var(--div-color);
+  padding: 1rem 1.5rem;
+  border-radius: var(--radius);
+  margin: 1rem 0;
+}
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+.form-input label {
+  text-transform: capitalize;
+  font-size: 14px;
+}
+.input-wrapper {
+  width: 100%;
+  position: relative;
+}
+.input-wrapper input,
+.form-input input {
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  border: 1px solid var(--div-border);
+  outline-color: var(--main-color);
+  font-size: 17px;
+  font-weight: 500;
+  width: 100%;
+}
+.input-icon svg {
+  color: var(--main-color);
+  position: absolute;
+  right: 5px;
+  height: 100%;
+  top: 0;
+}
+.seat-date {
+  display: flex;
+  gap: 0.5rem;
+  width: 100%;
+}
+.seat {
+  width: 30%;
+}
+.date {
+  width: 70%;
+}
+.route {
+  margin: 0.5rem 0;
+  padding: 0.2rem 0;
+  border-top: 1px solid var(--div-border);
+  border-bottom: 1px solid var(--div-border);
+}
+.route-header {
+  font-size: 14px;
+  text-transform: capitalize;
+  font-family: var(--receipt-font);
+}
+.route-header span {
+  font-style: italic;
+}
+.route-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.from-location,
+.to-location {
+  display: grid;
+  place-content: center;
+  padding: 0.2rem 0.6rem;
+}
+.location {
+  color: grey;
+  text-transform: uppercase;
+  font-weight: 550;
+  font-size: 12px;
+  text-align: center;
+}
+.time {
+  font-weight: 550;
+  text-align: center;
+  text-transform: uppercase;
+}
+.route-icon svg {
+  fill: var(--main-color);
+}
+.route-icon {
+  width: 30%;
+  display: grid;
+  place-content: center;
+  position: relative;
+}
+.route-icon:before {
+  content: " ";
+  width: 3rem;
+  height: 1px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  background: repeating-linear-gradient(
+    to right,
+    var(--main-color) 0,
+    var(--main-color) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  left: 0;
+}
+.route-icon:after {
+  content: " ";
+  width: 3rem;
+  height: 1px;
+  display: block;
+  position: absolute;
+  top: 50%;
+  background: repeating-linear-gradient(
+    to right,
+    var(--main-color) 0,
+    var(--main-color) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  right: 0;
+}

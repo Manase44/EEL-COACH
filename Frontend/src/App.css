@@ -1,0 +1,44 @@
+@import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+@font-face {
+  font-family: "helvetica";
+  src:
+    url("https://candyfonts.com/wp-data/2018/10/26/11538/HELR45W.ttf")
+      format("woff"),
+    url("https://candyfonts.com/wp-data/2018/10/26/11538/HELR45W.ttf")
+      format("opentype"),
+    url("https://candyfonts.com/wp-data/2018/10/26/11538/HELR45W.ttf")
+      format("truetype");
+}
+:root {
+  --main-color: blue;
+  --div-color: #f4f4f4;
+  --main-font: "Poppins", sans-serif;
+  --cursive-font: "Dancing Script", cursive;
+  --receipt-font: "helvetica";
+  --radius: 8px;
+  --div-border: #cccccc;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html,
+body {
+  overflow-x: hidden;
+  font-family: var(--main-font);
+}
+button {
+  width: 100%;
+  border-radius: var(--radius);
+  padding: 0.5rem;
+  margin: 1rem 0;
+  background-color: var(--main-color);
+  border: none;
+  color: #fff;
+  text-transform: capitalize;
+  font-size: 17px;
+  font-weight: 550;
+  cursor: pointer;
+}
