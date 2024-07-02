@@ -4,6 +4,7 @@ aside {
   height: 100vh;
   position: fixed;
   left: 0;
+  top: 0;
 }
 .aside-header {
   margin: 1rem 0 2rem;
@@ -19,7 +20,6 @@ aside {
 }
 .aside-items {
   list-style: none;
-  padding: 0.5rem 1rem;
   margin: 0.3rem 0;
   border-radius: var(--radius);
   cursor: pointer;
@@ -28,8 +28,10 @@ aside {
   background-color: grey;
 }
 .aside-items a {
+  display: block;
   text-decoration: none;
   color: #fff;
   text-transform: capitalize;
   font-weight: 500;
+  padding: 0.5rem 1rem;
 }

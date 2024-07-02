@@ -7,6 +7,12 @@ import ChooseSeat from "./pages/passenger/chooseSeat/ChooseSeat";
 import Pay from "./pages/passenger/payment/Pay";
 import DownloadReceipt from "./pages/passenger/downloadReceipt/DownloadReceipt";
 import Dashboard from "./pages/admin/dashboard/Dashboard";
+import Bookings from "./pages/admin/bookings/Bookings";
+import Buses from "./pages/admin/buses/Buses";
+import Employees from "./pages/admin/employees/Employees";
+import Offices from "./pages/admin/offices/Offices";
+import Payments from "./pages/admin/payments/Payments";
+import BusRoutes from "./pages/admin/routes/BusRoutes";
 
 function App() {
   return (
@@ -19,6 +25,12 @@ function App() {
           <Route path="/payments" element={<Pay />} />
           <Route path="/done" element={<DownloadReceipt />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
+          <Route path="/admin/bookings" element={<Bookings />} />
+          <Route path="/admin/buses" element={<Buses />} />
+          <Route path="/admin/employees" element={<Employees />} />
+          <Route path="/admin/offices" element={<Offices />} />
+          <Route path="/admin/payments" element={<Payments />} />
+          <Route path="/admin/routes" element={<BusRoutes />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </BrowserRouter>
