@@ -6,6 +6,7 @@ import Book from "./pages/passenger/book/Book";
 import ChooseSeat from "./pages/passenger/chooseSeat/ChooseSeat";
 import Pay from "./pages/passenger/payment/Pay";
 import DownloadReceipt from "./pages/passenger/downloadReceipt/DownloadReceipt";
+import Dashboard from "./pages/admin/dashboard/Dashboard";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/chooseseat" element={<ChooseSeat />} />
           <Route path="/payments" element={<Pay />} />
           <Route path="/done" element={<DownloadReceipt />} />
+          <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="*" element={<Notfound />} />
         </Routes>
       </BrowserRouter>
