@@ -3,10 +3,12 @@ import mpesaLogo from "../../../assets/mpesa.png";
 import paypalLogo from "../../../assets/paypal.png";
 import mastercardLogo from "../../../assets/mastercard.png";
 import { FaRoute, FaRegCalendarAlt } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 import { useFormik } from "formik";
 
 const Pay = () => {
+  const navigate = useNavigate();
   const handleForm = useFormik({
     initialValues: {
       name: "",
@@ -14,6 +16,10 @@ const Pay = () => {
       phoneNumber: "",
     },
   });
+
+  const handlePay = () => {
+    navigate("/done");
+  };
   return (
     <section className="payment-section">
       <h1 className="section-title">payment details</h1>
@@ -72,7 +78,9 @@ const Pay = () => {
               </div>
             </div>
 
-            <button>pay</button>
+            <button type="submit" onClick={handlePay}>
+              pay fare
+            </button>
           </form>
         </div>
 

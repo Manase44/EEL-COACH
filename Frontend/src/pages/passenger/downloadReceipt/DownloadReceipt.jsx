@@ -1,7 +1,7 @@
-import React from "react";
+import "./DownloadReceipt.css";
 
 const DownloadReceipt = () => {
-  return <div></div>;
+  return <section className="done-section">hello</section>;
 };
 
 export default DownloadReceipt;
