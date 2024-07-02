@@ -3,28 +3,63 @@ import { useNavigate } from "react-router-dom";
 import { FaRoute, FaRegCalendarAlt } from "react-icons/fa";
 import { MdOutlineLocationOn } from "react-icons/md";
 import { TbUserQuestion } from "react-icons/tb";
+import { useFormik } from "formik";
 
 const Book = () => {
   const navigate = useNavigate();
 
-  const handleBook = () => [navigate("/chooseseat")];
+  const validate = () => {
+    const errors = {};
+
+    if (values.noOfSeats < 1) {
+      errors.noOfSeats = "Seats must be atleast one";
+    }
+  };
+  const formHandling = useFormik({
+    initialValues: {
+      from: "",
+      to: "",
+      noOfSeats: "",
+      date: "",
+    },
+    validate,
+    onSubmit: (values) => {
+      JSON.stringify(values);
+    },
+  });
+  const handleBook = () => {
+    navigate("/chooseseat");
+  };
   return (
     <section className="booking-details-section">
       <div className="booking-details-section-input-container">
         <form className="booking-details-form">
           <div className="form-input">
-            <label htmlFor="to">to:</label>
+            <label htmlFor="from">from:</label>
             <div className="input-wrapper">
-              <input type="text" name="to" id="to" placeholder="to" />
+              <input
+                type="text"
+                name="from"
+                id="from"
+                onChange={formHandling.handleChange}
+                value={formHandling.values.from}
+              />
               <div className="input-icon">
                 <MdOutlineLocationOn />
               </div>
             </div>
           </div>
           <div className="form-input">
-            <label htmlFor="from">from:</label>
+            <label htmlFor="to">to:</label>
             <div className="input-wrapper">
-              <input type="text" name="from" id="from" />
+              <input
+                type="text"
+                name="to"
+                id="to"
+                placeholder="to"
+                onChange={formHandling.handleChange}
+                value={formHandling.values.to}
+              />
               <div className="input-icon">
                 <MdOutlineLocationOn />
               </div>
@@ -34,7 +69,13 @@ const Book = () => {
             <div className="form-input seat">
               <label htmlFor="noOfSeats">Seats: </label>
               <div className="input-wrapper">
-                <input type="number" name="noOfSeats" id="noOfSeats" />
+                <input
+                  type="number"
+                  name="noOfSeats"
+                  id="noOfSeats"
+                  onChange={formHandling.handleChange}
+                  value={formHandling.values.noOfSeats}
+                />
                 <div className="input-icon">
                   <TbUserQuestion />
                 </div>
@@ -42,7 +83,13 @@ const Book = () => {
             </div>
             <div className="form-input date">
               <label htmlFor="date">date:</label>
-              <input type="date" name="date" id="date" />
+              <input
+                type="date"
+                name="date"
+                id="date"
+                onChange={formHandling.handleChange}
+                value={formHandling.values.date}
+              />
             </div>
           </div>
         </form>

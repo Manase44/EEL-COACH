@@ -4,6 +4,15 @@
   display: grid;
   place-content: center;
   background-color: var(--main-color);
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.6),
+      rgba(0, 0, 0, 0.1)
+    ),
+    url(../../../assets/bus_interior_1.jpeg);
+  background-repeat: none;
+  background-size: cover;
+  background-position: center;
 }
 picture {
   display: flex;
