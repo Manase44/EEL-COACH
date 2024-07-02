@@ -32,3 +32,14 @@ button {
   font-weight: 550;
   cursor: pointer;
 }
+.section-title {
+  text-transform: capitalize;
+  text-align: center;
+  margin-top: 1rem;
+}
+.mini-title {
+  font-weight: 550;
+  font-size: 15px;
+  text-transform: capitalize;
+  margin-bottom: 0.3rem;
+}

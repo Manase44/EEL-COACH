@@ -1,0 +1,63 @@
+.payment-section {
+  padding: 0 7rem;
+}
+.payment-section-content {
+  display: grid;
+  grid-template-columns: 3fr 1fr;
+  margin-top: 2rem;
+}
+.payment-methods {
+  width: 50%;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+}
+.method {
+  border-radius: var(--radius);
+  height: 3rem;
+  padding: 0.5rem;
+  display: grid;
+  place-content: center;
+  cursor: pointer;
+  transition: all 0.5s;
+  opacity: 0.3;
+}
+.mpesa {
+  opacity: 1;
+}
+.method:hover {
+  border: 1px solid var(--main-color);
+}
+
+.method img {
+  width: 50px;
+}
+.summary {
+  background-color: var(--div-color);
+  border-radius: var(--radius);
+  padding: 0.2rem 0.5rem;
+  margin-bottom: 1rem;
+}
+.payment-form {
+  margin-top: 1rem;
+  width: 70%;
+}
+.book-summary-date {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.book-summary-date svg {
+  fill: var(--main-color);
+}
+.summary-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.summary-item span {
+  text-transform: capitalize;
+}
+.total {
+  font-weight: 550;
+}

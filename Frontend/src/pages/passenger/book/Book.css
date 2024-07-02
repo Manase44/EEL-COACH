@@ -12,8 +12,8 @@
   margin: 1rem 0;
 }
 .form-input {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  margin-bottom: 1rem;
 }
 .form-input label {
   text-transform: capitalize;
