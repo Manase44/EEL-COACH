@@ -13,6 +13,8 @@ import Employees from "./pages/admin/portal/employees/Employees";
 import Offices from "./pages/admin/portal/offices/Offices";
 import Payments from "./pages/admin/portal/payments/Payments";
 import BusRoutes from "./pages/admin/portal/routes/BusRoutes";
+import Register from "./pages/admin/signing/register/Register";
+import Login from "./pages/admin/signing/login/Login";
 
 function App() {
   return (
@@ -24,6 +26,8 @@ function App() {
           <Route path="/chooseseat" element={<ChooseSeat />} />
           <Route path="/payments" element={<Pay />} />
           <Route path="/done" element={<DownloadReceipt />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
           <Route path="/admin/dashboard" element={<Dashboard />} />
           <Route path="/admin/bookings" element={<Bookings />} />
           <Route path="/admin/buses" element={<Buses />} />

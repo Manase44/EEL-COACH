@@ -1,4 +1,5 @@
 import "./Aside.css";
+import logo from "../../assets/logo.png";
 import { Link } from "react-router-dom";
 import { TbBrandBooking } from "react-icons/tb";
 import { TbLayoutDashboardFilled } from "react-icons/tb";
@@ -13,7 +14,10 @@ const Aside = () => {
     <aside>
       <div className="aside-header">
         <Link to={"/"}>
-          <h1>eel coach</h1>
+          <picture className="aside-header-logo">
+            <source />
+            <img src={logo} alt="eel coach logo" />
+          </picture>
         </Link>
       </div>
       <ul className="aside-menu">

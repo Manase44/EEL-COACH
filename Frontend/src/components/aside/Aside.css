@@ -7,16 +7,15 @@ aside {
   top: 0;
 }
 .aside-header {
-  margin: 1rem 0 2rem;
   display: grid;
   place-content: center;
+  margin-bottom: 2rem;
 }
 .aside-header a {
   text-decoration: none;
 }
-.aside-header h1 {
-  text-transform: uppercase;
-  color: #fff;
+.aside-header-logo > img {
+  width: 100px;
 }
 .aside-items {
   width: 100%;
