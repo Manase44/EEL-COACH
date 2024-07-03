@@ -1,0 +1,17 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model routes {
+  routeid String @id @default(uuid())
+  from String
+  to String
+  depatureTime DateTime
+  arrivalTime DateTime
+  passengerArrivalTime DateTime
+}
