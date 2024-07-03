@@ -11,7 +11,9 @@ model routes {
   routeid String @id @default(uuid())
   from String
   to String
-  depatureTime DateTime
-  arrivalTime DateTime
-  passengerArrivalTime DateTime
+  departureTime String
+  arrivalTime String
+  passengerArrivalTime String
+
+  @@unique([from , to, departureTime, arrivalTime, passengerArrivalTime])
 }
