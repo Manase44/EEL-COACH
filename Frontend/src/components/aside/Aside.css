@@ -11,27 +11,30 @@ aside {
   display: grid;
   place-content: center;
 }
+.aside-header a {
+  text-decoration: none;
+}
 .aside-header h1 {
   text-transform: uppercase;
   color: #fff;
 }
-.aside-menu {
-  margin: 0 2rem;
-}
 .aside-items {
+  width: 100%;
   list-style: none;
   margin: 0.3rem 0;
-  border-radius: var(--radius);
+  /* border-radius: var(--radius); */
   cursor: pointer;
 }
 .aside-items:hover {
   background-color: grey;
 }
 .aside-items a {
-  display: block;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   text-decoration: none;
   color: #fff;
   text-transform: capitalize;
   font-weight: 500;
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 2rem;
 }

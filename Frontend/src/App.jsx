@@ -6,13 +6,13 @@ import Book from "./pages/passenger/book/Book";
 import ChooseSeat from "./pages/passenger/chooseSeat/ChooseSeat";
 import Pay from "./pages/passenger/payment/Pay";
 import DownloadReceipt from "./pages/passenger/downloadReceipt/DownloadReceipt";
-import Dashboard from "./pages/admin/dashboard/Dashboard";
-import Bookings from "./pages/admin/bookings/Bookings";
-import Buses from "./pages/admin/buses/Buses";
-import Employees from "./pages/admin/employees/Employees";
-import Offices from "./pages/admin/offices/Offices";
-import Payments from "./pages/admin/payments/Payments";
-import BusRoutes from "./pages/admin/routes/BusRoutes";
+import Dashboard from "./pages/admin/portal/dashboard/Dashboard";
+import Bookings from "./pages/admin/portal/bookings/Bookings";
+import Buses from "./pages/admin/portal/buses/Buses";
+import Employees from "./pages/admin/portal/employees/Employees";
+import Offices from "./pages/admin/portal/offices/Offices";
+import Payments from "./pages/admin/portal/payments/Payments";
+import BusRoutes from "./pages/admin/portal/routes/BusRoutes";
 
 function App() {
   return (
