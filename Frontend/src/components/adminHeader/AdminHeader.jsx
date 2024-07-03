@@ -1,3 +1,4 @@
+import "./AdminHeader.css";
 import { MdOutlineNotificationsNone, MdOutlineSearch } from "react-icons/md";
 import { Link } from "react-router-dom";
 import adminProfile from "../../assets/admin.jpg";

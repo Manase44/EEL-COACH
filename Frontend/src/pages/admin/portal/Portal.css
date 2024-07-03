@@ -1,73 +1,24 @@
-header {
+.portal-container {
   margin-left: 11rem;
-  background-color: var(--div-color);
+}
+.portal-main-content {
+  margin-top: 1rem;
+  padding: 0 1rem;
+}
+.main-content-label {
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
 }
-.header-left-content {
-  display: flex;
-  flex-direction: column;
-}
-.header-welcome-text,
-.header-small-text {
-  text-transform: capitalize;
-}
-.header-small-text,
-.admin-position {
-  color: grey;
-  font-weight: 550;
-  font-size: 12px;
-}
-.header-right-content {
-  display: flex;
-  gap: 0.8rem;
-}
-.header-icons-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 0.5rem;
-  padding: 0.7rem;
-  border-right: 1px solid var(--div-border);
-}
-.header-icons-container svg {
-  font-size: 20px;
-  fill: var(--main-color);
-  cursor: pointer;
-}
-.admin-profile {
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-.admin-details {
-  display: grid;
-  gap: 0.2rem;
-  text-align: right;
-}
-.admin-position {
-  text-transform: capitalize;
-}
-.admin-name {
+.main-content-title {
   text-transform: capitalize;
   font-size: 15px;
-  font-weight: 550;
 }
-.admin-picture,
-.admin-picture > picture {
-  --size: 3rem;
-  height: var(--size);
-  width: var(--size);
-  border-radius: 50%;
-  background-color: var(--div-color);
-  overflow: hidden;
+tr {
+  display: flex;
+  gap: 1rem;
 }
-.admin-picture > picture > img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+th {
+  text-transform: capitalize;
 }

@@ -4,11 +4,11 @@ import AdminHeader from "../../../../components/adminHeader/AdminHeader";
 
 const Dashboard = () => {
   return (
-    <>
+    <div className="portal-container">
       <Aside />
       <AdminHeader />
-      <div className="dashboard-content"></div>
-    </>
+      <main className="portal-main-content"></main>
+    </div>
   );
 };
 
