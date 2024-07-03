@@ -25,20 +25,16 @@ const updateBusRoute = async (req, res) => {
         },
       });
       if (updatingBusRoute) {
-        res
-          .status(200)
-          .json({
-            ok: true,
-            message: "The bus route has been updated successfully",
-          });
+        res.status(200).json({
+          ok: true,
+          message: "The bus route has been updated successfully",
+        });
       }
     } else {
-      res
-        .status(400)
-        .json({
-          ok: false,
-          message: "The bus route you want to update does not exist",
-        });
+      res.status(400).json({
+        ok: false,
+        message: "The bus route you want to update does not exist",
+      });
     }
   } catch (error) {
     res.status(500).json({ ok: false, message: error.message });

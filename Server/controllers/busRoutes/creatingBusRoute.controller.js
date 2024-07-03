@@ -29,12 +29,10 @@ const createNewBusRoute = async (req, res) => {
         },
       });
       if (creatingBusRoute) {
-        res
-          .status(400)
-          .json({
-            ok: true,
-            message: "The bus route was created successfully",
-          });
+        res.status(400).json({
+          ok: true,
+          message: "The bus route was created successfully",
+        });
       }
     }
   } catch (error) {
