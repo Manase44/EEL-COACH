@@ -23,7 +23,7 @@ model Employee {
   employeePassword String
   employeeRole String @default("employee")
  
-  number Employee_number @relation(fields: [employeeNumber], references: [employeeNumber])
+  number Employee_number @relation(fields: [employeeNumber], references: [employeeNumber], onDelete: Cascade, onUpdate: Cascade)
   employeeNumber String @unique
 
   office Office?
@@ -34,7 +34,7 @@ model Bus {
   busNumber String @unique
   seatsNumber Int
 
-  busRoute Route?
+  busRoute Route[]
 }
 
 model Route {
@@ -47,7 +47,7 @@ model Route {
 
   @@unique([from , to, departureTime, arrivalTime, passengerArrivalTime])
 
-  busUsed Bus? @relation(fields: [busId], references: [busId])
+  busUsed Bus @relation(fields: [busId], references: [busId])
   busId String @unique
 }
 

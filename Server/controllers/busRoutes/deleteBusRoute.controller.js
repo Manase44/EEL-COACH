@@ -18,13 +18,13 @@ const deleteBusRoute = async (req, res) => {
         },
       });
       if (deletingBusRoute) {
-        res.json({
+        res.status(200).json({
           ok: true,
           message: "The specified bus route was deleted successfully",
         });
       }
     } else {
-      res.status(400).json({
+      res.status(404).json({
         ok: false,
         message: "the bus route you want to delete does not exist",
       });

@@ -11,12 +11,10 @@ const createBus = async (req, res) => {
       },
     });
     if (confirmBusExistence) {
-      res
-        .status(400)
-        .json({
-          ok: false,
-          message: "The bus you are creating already exists",
-        });
+      res.status(400).json({
+        ok: false,
+        message: "The bus you are creating already exists",
+      });
     } else {
       const creatingNewBus = await prisma.bus.create({
         data: {

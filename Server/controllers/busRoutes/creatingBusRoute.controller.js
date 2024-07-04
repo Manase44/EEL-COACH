@@ -15,28 +15,41 @@ const createNewBusRoute = async (req, res) => {
       },
     });
     if (confirmingExistense) {
-      res
-        .status(400)
-        .json({
-          ok: false,
-          message: "The bus route you are creating already exists",
-        });
+      res.status(400).json({
+        ok: false,
+        message: "The bus route you are creating already exists",
+      });
     } else {
-      const creatingBusRoute = await prisma.route.create({
-        data: {
-          from,
-          to,
-          departureTime,
-          arrivalTime,
-          passengerArrivalTime,
+      const confirmingBusExistence = await prisma.bus.findUnique({
+        where: {
           busId,
         },
       });
-      if (creatingBusRoute) {
-        res.status(400).json({
-          ok: true,
-          message: "The bus route was created successfully",
+      if (!confirmingBusExistence) {
+        res
+          .status(404)
+          .json({
+            ok: false,
+            message:
+              "The bus you are trying to create a route for does not exist",
+          });
+      } else {
+        const creatingBusRoute = await prisma.route.create({
+          data: {
+            from,
+            to,
+            departureTime,
+            arrivalTime,
+            passengerArrivalTime,
+            busId,
+          },
         });
+        if (creatingBusRoute) {
+          res.status(400).json({
+            ok: true,
+            message: "The bus route was created successfully",
+          });
+        }
       }
     }
   } catch (error) {
