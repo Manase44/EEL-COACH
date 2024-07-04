@@ -46,6 +46,8 @@
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-top: 0.2rem;
+  font-size: 13px;
 }
 .book-summary-date svg {
   fill: var(--main-color);

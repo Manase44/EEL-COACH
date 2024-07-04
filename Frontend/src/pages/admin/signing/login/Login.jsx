@@ -1,5 +1,5 @@
 import "../Signing.css";
-import logo from "../../../../assets/logo.png";
+import logo from "../../../../assets/favicon.png";
 import googleLogo from "../../../../assets/google.png";
 import { Link } from "react-router-dom";
 import { useFormik } from "formik";
@@ -23,6 +23,7 @@ const Login = () => {
               <img src={logo} alt="eel coach logo" />
             </picture>
           </Link>
+          <h1 className="signing-header-title">eel coach</h1>
           <h1 className="signing-header-text">login to your account</h1>
         </div>
         <form className="signing-form">
