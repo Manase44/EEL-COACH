@@ -56,22 +56,18 @@ const createEmployee = async (req, res) => {
             },
           });
           if (creatingNewEmployee) {
-            res
-              .status(201)
-              .json({
-                ok: true,
-                message: "The employee was created successfully",
-                no: confirmingEmployeeNumberExistence,
-              });
+            res.status(201).json({
+              ok: true,
+              message: "The employee was created successfully",
+              no: confirmingEmployeeNumberExistence,
+            });
           }
         }
       } else {
-        res
-          .status(400)
-          .json({
-            ok: false,
-            message: "The employee number is not recognized",
-          });
+        res.status(400).json({
+          ok: false,
+          message: "The employee number is not recognized",
+        });
       }
     }
   } catch (error) {

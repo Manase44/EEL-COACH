@@ -1,12 +1,13 @@
 .signing-section {
   width: 100vw;
-  height: 100vh;
+  padding: 1rem 0;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.main-signing-container {
+.main-signing-container,
+.main-registering-container {
   width: 30%;
   display: grid;
   gap: 0.8rem;
@@ -107,4 +108,64 @@
 .signing-ref-text,
 .signing-forget-text {
   font-size: 13px;
+}
+
+.main-registering-container {
+  width: 40%;
+}
+.register-name-inputs,
+.register-password-input,
+.register-date-photo {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.register-gender-input {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+}
+
+@media screen and (max-width: 1040px) {
+  .main-signing-container {
+    width: 40%;
+  }
+}
+@media screen and (max-width: 992px) {
+  .main-registering-container {
+    width: 55%;
+  }
+}
+@media screen and (max-width: 800px) {
+  .main-signing-container {
+    width: 50%;
+  }
+}
+@media screen and (max-width: 700px) {
+  .main-signing-container,
+  .main-registering-container {
+    width: 70%;
+  }
+}
+@media screen and (max-width: 500px) {
+  .main-registering-container,
+  .main-signing-container {
+    width: 80%;
+  }
+  .register-name-inputs,
+  .register-password-input,
+  .register-date-photo {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .register-gender-input {
+    gap: 0;
+  }
+}
+@media screen and (max-width: 450px) {
+  .main-registering-container,
+  .main-signing-container {
+    width: 85%;
+  }
 }

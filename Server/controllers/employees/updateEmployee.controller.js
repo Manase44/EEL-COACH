@@ -20,12 +20,10 @@ const updateEmployee = async (req, res) => {
       },
     });
     if (!confirmingEmployeeExistence) {
-      res
-        .status(404)
-        .json({
-          ok: false,
-          message: "The employee you are updating does not exist",
-        });
+      res.status(404).json({
+        ok: false,
+        message: "The employee you are updating does not exist",
+      });
     } else {
       const updatingEmployeeDetails = await prisma.employee.update({
         where: {
@@ -42,12 +40,10 @@ const updateEmployee = async (req, res) => {
           employeeRole: role,
         },
       });
-      res
-        .status(200)
-        .json({
-          ok: true,
-          message: "The employee details were upated successfully",
-        });
+      res.status(200).json({
+        ok: true,
+        message: "The employee details were upated successfully",
+      });
     }
   } catch (error) {
     res.status(500).json({ ok: false, message: error.message });

@@ -11,12 +11,10 @@ const deleteEmployee = async (req, res) => {
       },
     });
     if (!confirmingEmployeeExistence) {
-      res
-        .status(404)
-        .json({
-          ok: false,
-          message: "The employee you want to delete does not exist",
-        });
+      res.status(404).json({
+        ok: false,
+        message: "The employee you want to delete does not exist",
+      });
     } else {
       const deletingEmployee = await prisma.employee.delete({
         where: {
