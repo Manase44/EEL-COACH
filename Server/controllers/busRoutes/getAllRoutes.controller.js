@@ -3,7 +3,7 @@ const prisma = new PrismaClient();
 
 const getAllBusRoutes = async (req, res) => {
   try {
-    const gettingAllBusRoutes = await prisma.routes.findMany();
+    const gettingAllBusRoutes = await prisma.route.findMany();
     if (gettingAllBusRoutes.length < 1) {
       res.status(200).json({ ok: false, message: "No bus routes available" });
     } else {

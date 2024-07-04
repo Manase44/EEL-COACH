@@ -2,10 +2,10 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const createNewBusRoute = async (req, res) => {
-  const { from, to, departureTime, arrivalTime, passengerArrivalTime } =
+  const { from, to, departureTime, arrivalTime, passengerArrivalTime, busId } =
     req.body;
   try {
-    const confirmingExistense = await prisma.routes.findFirst({
+    const confirmingExistense = await prisma.route.findFirst({
       where: {
         from,
         to,
@@ -17,15 +17,19 @@ const createNewBusRoute = async (req, res) => {
     if (confirmingExistense) {
       res
         .status(400)
-        .json({ ok: false, message: "The described bus route already exists" });
+        .json({
+          ok: false,
+          message: "The bus route you are creating already exists",
+        });
     } else {
-      const creatingBusRoute = await prisma.routes.create({
+      const creatingBusRoute = await prisma.route.create({
         data: {
           from,
           to,
           departureTime,
           arrivalTime,
           passengerArrivalTime,
+          busId,
         },
       });
       if (creatingBusRoute) {
@@ -36,7 +40,7 @@ const createNewBusRoute = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({ ok: false, message: "something went wrong" });
+    res.status(500).json({ ok: false, message: error.message });
   }
 };
 

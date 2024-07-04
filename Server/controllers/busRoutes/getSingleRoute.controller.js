@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const getSingleBusRoute = async (req, res) => {
   const busRouteId = req.params.id;
   try {
-    const gettingSingleBusRoute = await prisma.routes.findUnique({
+    const gettingSingleBusRoute = await prisma.route.findUnique({
       where: {
         routeid: busRouteId,
       },

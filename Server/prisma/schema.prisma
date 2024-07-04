@@ -7,7 +7,37 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model routes {
+model Employee_number {
+  employeeNumber String @unique @id
+  employee Employee?
+}
+
+model Employee {
+  employeeId String @id @default(uuid())
+  employeeFirstName String
+  employeeSecondName String
+  employeePhotoUrl String
+  employeePhoneNumber String @unique
+  employeeEmailAddress String @unique
+  employeeGender String
+  employeePassword String
+  employeeRole String @default("employee")
+ 
+  number Employee_number @relation(fields: [employeeNumber], references: [employeeNumber])
+  employeeNumber String @unique
+
+  office Office?
+}
+
+model Bus {
+  busId String @id @default(uuid())
+  busNumber String @unique
+  seatsNumber Int
+
+  busRoute Route?
+}
+
+model Route {
   routeid String @id @default(uuid())
   from String
   to String
@@ -16,4 +46,19 @@ model routes {
   passengerArrivalTime String
 
   @@unique([from , to, departureTime, arrivalTime, passengerArrivalTime])
+
+  busUsed Bus? @relation(fields: [busId], references: [busId])
+  busId String @unique
 }
+
+model Office {
+  officeId String @id @default(uuid())
+  officeLocation String 
+  officeBuilding String
+
+  @@unique([officeLocation,officeBuilding])
+
+  office Employee? @relation(fields: [employeeId], references: [employeeId])
+  employeeId String @unique
+}
+

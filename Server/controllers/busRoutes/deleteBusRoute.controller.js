@@ -6,13 +6,13 @@ const deleteBusRoute = async (req, res) => {
   const busRouteId = req.params.id;
 
   try {
-    const confirmingExistense = await prisma.routes.findUnique({
+    const confirmingExistense = await prisma.route.findUnique({
       where: {
         routeid: busRouteId,
       },
     });
     if (confirmingExistense) {
-      const deletingBusRoute = await prisma.routes.delete({
+      const deletingBusRoute = await prisma.route.delete({
         where: {
           routeid: busRouteId,
         },

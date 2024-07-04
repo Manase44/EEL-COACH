@@ -6,13 +6,13 @@ const updateBusRoute = async (req, res) => {
   const { from, to, departureTime, arrivalTime, passengerArrivalTime } =
     req.body;
   try {
-    const confirmingExistense = await prisma.routes.findUnique({
+    const confirmingExistense = await prisma.route.findUnique({
       where: {
         routeid: busRouteId,
       },
     });
     if (confirmingExistense) {
-      const updatingBusRoute = await prisma.routes.update({
+      const updatingBusRoute = await prisma.route.update({
         where: {
           routeid: busRouteId,
         },
