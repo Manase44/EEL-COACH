@@ -26,13 +26,11 @@ const createNewBusRoute = async (req, res) => {
         },
       });
       if (!confirmingBusExistence) {
-        res
-          .status(404)
-          .json({
-            ok: false,
-            message:
-              "The bus you are trying to create a route for does not exist",
-          });
+        res.status(404).json({
+          ok: false,
+          message:
+            "The bus you are trying to create a route for does not exist",
+        });
       } else {
         const creatingBusRoute = await prisma.route.create({
           data: {
