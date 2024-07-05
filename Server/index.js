@@ -1,5 +1,6 @@
 import e from "express";
 import { config } from "dotenv";
+import cors from "cors";
 import busRoutes from "./routes/busRoutes.routes.js";
 import bus from "./routes/buses.routes.js";
 import employeeRouter from "./routes/employee.routes.js";
@@ -9,8 +10,14 @@ const app = e();
 config();
 
 const port = process.env.PORT;
-
+app.use(e.urlencoded({ extended: true }));
 app.use(e.json());
+
+app.use(
+  cors({
+    origin: "http://localhost:5173/",
+  }),
+);
 
 app.use("/admin/empcode", employeeNumberRouter);
 app.use("/admin/employees", employeeRouter);

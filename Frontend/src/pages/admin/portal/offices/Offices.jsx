@@ -4,10 +4,17 @@ import AdminHeader from "../../../../components/adminHeader/AdminHeader";
 
 const Offices = () => {
   return (
-    <div>
+    <div className="portal-container">
       <Aside />
       <AdminHeader />
-      <header>offices</header>
+      <main className="portal-main-content">
+        <div className="main-content-label">
+          <h2 className="main-content-title">available Offices</h2>
+          <div className="label-cta">
+            <button>register office</button>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

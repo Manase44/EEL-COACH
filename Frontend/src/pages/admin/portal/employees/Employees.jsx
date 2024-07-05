@@ -4,10 +4,17 @@ import AdminHeader from "../../../../components/adminHeader/AdminHeader";
 
 const Employees = () => {
   return (
-    <div>
+    <div className="portal-container">
       <Aside />
       <AdminHeader />
-      <header>employees</header>
+      <main className="portal-main-content">
+        <div className="main-content-label">
+          <h2 className="main-content-title">employees</h2>
+          <div className="label-cta">
+            <button>add employee</button>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

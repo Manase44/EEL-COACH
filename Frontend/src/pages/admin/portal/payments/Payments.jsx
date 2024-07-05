@@ -4,10 +4,17 @@ import AdminHeader from "../../../../components/adminHeader/AdminHeader";
 
 const Payments = () => {
   return (
-    <div>
+    <div className="portal-container">
       <Aside />
       <AdminHeader />
-      <header>payments</header>
+      <main className="portal-main-content">
+        <div className="main-content-label">
+          <h2 className="main-content-title">payments</h2>
+          <div className="label-cta">
+            <button>print payment logs</button>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

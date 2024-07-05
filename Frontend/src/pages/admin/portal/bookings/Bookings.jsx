@@ -4,10 +4,17 @@ import AdminHeader from "../../../../components/adminHeader/AdminHeader";
 
 const Bookings = () => {
   return (
-    <div>
+    <div className="portal-container">
       <Aside />
       <AdminHeader />
-      <header>buses</header>
+      <main className="portal-main-content">
+        <div className="main-content-label">
+          <h2 className="main-content-title">bookings</h2>
+          <div className="label-cta">
+            <button>book for passenger</button>
+          </div>
+        </div>
+      </main>
     </div>
   );
 };

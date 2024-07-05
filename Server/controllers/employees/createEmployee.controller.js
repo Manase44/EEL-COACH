@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcrypt";
 const prisma = new PrismaClient();
 
 const createEmployee = async (req, res) => {
@@ -33,45 +34,40 @@ const createEmployee = async (req, res) => {
             employeeNumber,
           },
         });
-      if (confirmingEmployeeNumberExistence) {
-        const confirmingIfNumberAlreadySigned =
-          await prisma.employee.findUnique({
-            where: {
-              employeeNumber,
-            },
-          });
-        if (confirmingIfNumberAlreadySigned) {
-          res.status(400).json({ ok: false, message: "Invalid Number" });
-        } else {
-          const creatingNewEmployee = await prisma.employee.create({
-            data: {
-              employeeFirstName: firstName,
-              employeeSecondName: secondName,
-              employeePhotoUrl: photoUrl,
-              employeePhoneNumber: phoneNumber,
-              employeeEmailAddress: email,
-              employeeGender: gender,
-              employeePassword: password,
-              employeeNumber,
-            },
-          });
-          if (creatingNewEmployee) {
-            res.status(201).json({
-              ok: true,
-              message: "The employee was created successfully",
-              no: confirmingEmployeeNumberExistence,
-            });
-          }
-        }
+      const confirmingIfNumberAlreadySigned = await prisma.employee.findUnique({
+        where: {
+          employeeNumber,
+        },
+      });
+      if (
+        !confirmingEmployeeNumberExistence ||
+        confirmingIfNumberAlreadySigned
+      ) {
+        res.status(400).json({ ok: false, message: "Invalid Number" });
       } else {
-        res.status(400).json({
-          ok: false,
-          message: "The employee number is not recognized",
+        const hashedPassword = bcrypt.hashSync(password, 10);
+        const creatingNewEmployee = await prisma.employee.create({
+          data: {
+            employeeFirstName: firstName,
+            employeeSecondName: secondName,
+            employeePhotoUrl: photoUrl,
+            employeePhoneNumber: phoneNumber,
+            employeeEmailAddress: email,
+            employeeGender: gender,
+            employeePassword: hashedPassword,
+            employeeNumber,
+          },
         });
+        if (creatingNewEmployee) {
+          res.status(201).json({
+            ok: true,
+            message: "The employee was created successfully",
+          });
+        }
       }
     }
   } catch (error) {
-    res.status(500).json({ ok: false, message: error.message });
+    res.status(500).json({ ok: false, message: "something went wrong" });
   }
 };
 
