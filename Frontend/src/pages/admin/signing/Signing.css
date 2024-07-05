@@ -45,6 +45,9 @@
 .signing-form {
   width: 100%;
 }
+.password-eye {
+  cursor: pointer;
+}
 
 .signing-forget-text {
   text-align: right;
@@ -55,6 +58,13 @@
 .signing-ref-text a {
   text-decoration: none;
   color: var(--main-color);
+}
+.error {
+  text-align: center;
+  color: red;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 500;
 }
 .or {
   position: relative;
@@ -124,6 +134,7 @@
   display: flex;
   justify-content: space-around;
   gap: 1rem;
+  border: none;
 }
 
 @media screen and (max-width: 1040px) {

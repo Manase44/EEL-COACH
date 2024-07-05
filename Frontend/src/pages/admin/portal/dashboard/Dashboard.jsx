@@ -55,6 +55,8 @@ const Dashboard = () => {
             })}
           </tbody> */}
         </table>
+
+        <dialog open>jj</dialog>
       </main>
     </div>
   );
