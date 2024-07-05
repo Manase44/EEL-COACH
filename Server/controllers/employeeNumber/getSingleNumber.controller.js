@@ -10,7 +10,7 @@ const getSingleNumber = async (req, res) => {
       },
     });
     if (gettingSingleNumber) {
-      res.status(200).json({ ok: true, data: gettingSingleNumber });
+      res.status(200).json({ ok: true, empCode: gettingSingleNumber });
     } else {
       res.status(404).json({ ok: false, message: "The Number does not exist" });
     }

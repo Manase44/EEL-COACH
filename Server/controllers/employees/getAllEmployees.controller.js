@@ -5,7 +5,7 @@ const getAllEmployees = async (req, res) => {
   try {
     const gettingAllEmployees = await prisma.employee.findMany();
     if (gettingAllEmployees.length > 0) {
-      res.status(200).json({ ok: true, data: gettingAllEmployees });
+      res.status(200).json({ ok: true, employees: gettingAllEmployees });
     } else {
       res.status(404).json({ ok: false, message: "No employees available" });
     }

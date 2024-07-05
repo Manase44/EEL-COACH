@@ -7,7 +7,7 @@ const getAllBusRoutes = async (req, res) => {
     if (gettingAllBusRoutes.length < 1) {
       res.status(200).json({ ok: false, message: "No bus routes available" });
     } else {
-      res.status(200).json({ ok: true, data: gettingAllBusRoutes });
+      res.status(200).json({ ok: true, busRoutes: gettingAllBusRoutes });
     }
   } catch (error) {
     res.status(500).json({ ok: false, message: "Something went wrong" });

@@ -25,7 +25,7 @@ const deleteEmployeeNumber = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({ ok: false, message: error.message });
+    res.status(500).json({ ok: false, message: "something went wrong" });
   }
 };
 

@@ -1,18 +1,19 @@
 import jwt from "jsonwebtoken";
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
-const generateToken = (id) => {
+const generateToken = (payload) => {
   jwt.sign(
     {
-      userId: id,
+      payload,
     },
     accessTokenSecret,
     {
       expiresIn: "10m",
     },
   );
+
+  return res.cookie("token", generateToken);
 };
-res.cookie("token", generateToken);
 
 const generateRefreshToken = (id, code) => {
   jwt.sign(
@@ -28,8 +29,11 @@ const generateRefreshToken = (id, code) => {
 };
 
 const verifyToken = (token) => {
-  jwt.verify(token, accessTokenSecret);
+  jwt.verify(token, accessTokenSecret, (error, decoded) => {
+    if (error) {
+      return "invalid token";
+    } else {
+      return decoded;
+    }
+  });
 };
-
-//after login or regiter, generate the token and the refresh token. the id is the user id. the code is just a unique code. Store the refresh token in the database(a good practice when harshed)/or in a cookie
-//when the user makes a request, we first get the token from them, verify it, then we compare it to the existing refresh token in the databse. if they match we give the services and generate a new token, otherwise the user is unauhorized.

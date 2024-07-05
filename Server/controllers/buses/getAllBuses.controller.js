@@ -5,7 +5,7 @@ const getAllBuses = async (req, res) => {
   try {
     const gettingAllBuses = await prisma.bus.findMany();
     if (gettingAllBuses.length > 0) {
-      res.status(200).json({ ok: true, data: gettingAllBuses });
+      res.status(200).json({ ok: true, buses: gettingAllBuses });
     } else {
       res.status(400).json({ ok: false, message: "no avilable buses" });
     }

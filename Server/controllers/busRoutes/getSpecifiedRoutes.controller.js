@@ -12,7 +12,7 @@ const getSpecifiedRoutes = async (req, res) => {
       },
     });
     if (gettingSpecifiedRoutes.length > 0) {
-      res.status(200).json({ ok: true, data: gettingSpecifiedRoutes });
+      res.status(200).json({ ok: true, specificRoute: gettingSpecifiedRoutes });
     } else {
       res
         .status(404)

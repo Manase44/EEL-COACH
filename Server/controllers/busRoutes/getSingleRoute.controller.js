@@ -14,7 +14,7 @@ const getSingleBusRoute = async (req, res) => {
         .status(404)
         .json({ ok: false, message: "The specified bus route does not exist" });
     } else {
-      res.status(200).json({ ok: true, data: gettingSingleBusRoute });
+      res.status(200).json({ ok: true, busRoute: gettingSingleBusRoute });
     }
   } catch (error) {
     res.status(500).json({ ok: false, message: "something went wrong" });

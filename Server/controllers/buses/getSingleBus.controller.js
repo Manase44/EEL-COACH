@@ -10,7 +10,7 @@ const getSingleBus = async (req, res) => {
       },
     });
     if (gettingSingleBus) {
-      res.status(200).json({ ok: true, data: gettingSingleBus });
+      res.status(200).json({ ok: true, bus: gettingSingleBus });
     } else {
       res
         .status(404)
