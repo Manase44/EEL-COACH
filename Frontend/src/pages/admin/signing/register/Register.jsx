@@ -1,7 +1,7 @@
 import "../Signing.css";
 import logo from "../../../../assets/favicon.png";
 import googleLogo from "../../../../assets/google.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { FaFemale, FaMale } from "react-icons/fa";
@@ -16,11 +16,14 @@ import { object, ref, string } from "yup";
 const Register = () => {
   const preset = import.meta.env.VITE_UPLOAD_PRESET;
   const cloudName = import.meta.env.VITE_CLOUD_NAME;
+  const serverUrl = import.meta.env.VITE_SERVER_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [showConfPassword, setShowConfPassword] = useState(false);
   const [image, setImage] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
+
+  const navigate = useNavigate();
 
   const handlePasswordShow = () => {
     if (!showPassword) {
@@ -70,6 +73,18 @@ const Register = () => {
     }
   };
 
+  const postData = async (data) => {
+    console.log("posting data...");
+    try {
+      const response = await axios.post(`${serverUrl}/admin/employees`, data);
+      navigate("/login");
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+      setError(error.response.data.message);
+    }
+  };
+
   const validation = object({
     firstName: string().required("this field is required").lowercase().trim(),
     secondName: string().required("this field is required").lowercase().trim(),
@@ -106,7 +121,9 @@ const Register = () => {
       const imageLink = await uploadingImage();
       if (imageLink) {
         data.photoUrl = imageLink;
+        delete data.confirmPassword;
         console.log(data);
+        await postData(data);
         setIsLoading(false);
       } else {
         setIsLoading(false);
@@ -298,6 +315,7 @@ const Register = () => {
               <label htmlFor="confirmPassword">confirm password</label>
               <div className="input-wrapper">
                 <input
+                  className="password"
                   type={showConfPassword ? "text" : "password"}
                   name="confirmPassword"
                   id="confirmPassword"

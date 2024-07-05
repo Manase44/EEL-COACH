@@ -31,7 +31,14 @@
   outline-color: var(--main-color);
   font-size: 17px;
   font-weight: 500;
+  text-transform: capitalize;
   width: 100%;
+}
+.form-input input[type="email"],
+.form-input input[type="password"],
+#password,
+#confirmPassword {
+  text-transform: unset;
 }
 .input-icon svg {
   color: var(--main-color);

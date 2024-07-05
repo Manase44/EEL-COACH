@@ -78,6 +78,7 @@ const Login = () => {
             <label htmlFor="password">password</label>
             <div className="input-wrapper">
               <input
+                className="password"
                 type="password"
                 name="password"
                 id="password"

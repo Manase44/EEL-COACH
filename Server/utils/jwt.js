@@ -2,7 +2,7 @@ import jwt from "jsonwebtoken";
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
 const generateToken = (payload) => {
-  jwt.sign(
+  const token = jwt.sign(
     {
       payload,
     },
@@ -12,11 +12,11 @@ const generateToken = (payload) => {
     },
   );
 
-  return res.cookie("token", generateToken);
+  return token;
 };
 
 const generateRefreshToken = (id, code) => {
-  jwt.sign(
+  const refreshToken = jwt.sign(
     {
       userId: id,
       code,
@@ -26,14 +26,17 @@ const generateRefreshToken = (id, code) => {
       expiresIn: "8h",
     },
   );
+
+  return refreshToken;
 };
 
 const verifyToken = (token) => {
-  jwt.verify(token, accessTokenSecret, (error, decoded) => {
-    if (error) {
-      return "invalid token";
-    } else {
-      return decoded;
-    }
-  });
+  try {
+    const decoded = jwt.verify(token, accessTokenSecret);
+    return decoded;
+  } catch (error) {
+    return "Invalid token!";
+  }
 };
+
+export default { generateRefreshToken, generateToken, verifyToken };

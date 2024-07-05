@@ -1,5 +1,6 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
+import generateToken from "../../utils/jwt.js";
 const prisma = new PrismaClient();
 
 const createEmployee = async (req, res) => {
@@ -13,6 +14,19 @@ const createEmployee = async (req, res) => {
     password,
     employeeNumber,
   } = req.body;
+
+  if (
+    !firstName ||
+    !secondName ||
+    !photoUrl ||
+    !phoneNumber ||
+    !email ||
+    !gender ||
+    !password ||
+    !employeeNumber
+  ) {
+    res.status(400).json({ ok: false, message: "please provide all details" });
+  }
 
   try {
     const confirmingEmailExistence = await prisma.employee.findFirst({
@@ -59,10 +73,28 @@ const createEmployee = async (req, res) => {
           },
         });
         if (creatingNewEmployee) {
-          res.status(201).json({
-            ok: true,
-            message: "The employee was created successfully",
-          });
+          const payload = {
+            employeeId: creatingNewEmployee.employeeId,
+            employeeEmailAddress: creatingNewEmployee.employeeEmailAddress,
+            employeeFirstName: creatingNewEmployee.employeeFirstName,
+            employeeSecondName: creatingNewEmployee.employeeSecondName,
+            employeePhotoUrl: creatingNewEmployee.employeePhotoUrl,
+            employeeGender: creatingNewEmployee.employeeGender,
+            employeeNumber: creatingNewEmployee.employeeNumber,
+            employeePhoneNumber: creatingNewEmployee.employeePhoneNumber,
+          };
+
+          const access_token = generateToken(payload);
+
+          res
+            .status(201)
+            .json({
+              ok: true,
+              message: "The employee was created successfully",
+            })
+            .cookie("access_token", access_token, {
+              httpOnly: true,
+            });
         }
       }
     }
