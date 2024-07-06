@@ -1,4 +1,4 @@
-import verifyToken from "../utils/jwt.js";
+import { verifyToken } from "../utils/jwt.js";
 
 const authenticate = (req, res, next) => {
   const token = req.cookies.access_token;

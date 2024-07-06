@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 const accessTokenSecret = process.env.ACCESS_TOKEN_SECRET;
 
-const generateToken = (payload) => {
+export const generateToken = (payload) => {
   const token = jwt.sign(
     {
       payload,
@@ -15,7 +15,7 @@ const generateToken = (payload) => {
   return token;
 };
 
-const generateRefreshToken = (id, code) => {
+export const generateRefreshToken = (id, code) => {
   const refreshToken = jwt.sign(
     {
       userId: id,
@@ -30,7 +30,7 @@ const generateRefreshToken = (id, code) => {
   return refreshToken;
 };
 
-const verifyToken = (token) => {
+export const verifyToken = (token) => {
   try {
     const decoded = jwt.verify(token, accessTokenSecret);
     return decoded;
@@ -38,5 +38,3 @@ const verifyToken = (token) => {
     return "Invalid token!";
   }
 };
-
-export default { generateRefreshToken, generateToken, verifyToken };

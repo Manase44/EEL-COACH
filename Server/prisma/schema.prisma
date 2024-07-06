@@ -44,6 +44,7 @@ model Route {
   departureTime String
   arrivalTime String
   passengerArrivalTime String
+  // add price
 
   @@unique([from , to, departureTime, arrivalTime, passengerArrivalTime])
 

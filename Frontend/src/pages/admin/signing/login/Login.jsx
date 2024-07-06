@@ -101,7 +101,7 @@ const Login = () => {
           </p>
 
           {error && <p className="error">invalid</p>}
-          <button type="submit">
+          <button type="submit" disabled={isLoading}>
             {isLoading ? "we are setting up things for you..." : "login"}
           </button>
         </form>

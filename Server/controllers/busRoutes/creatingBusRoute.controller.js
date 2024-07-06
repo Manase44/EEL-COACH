@@ -4,6 +4,20 @@ const prisma = new PrismaClient();
 const createNewBusRoute = async (req, res) => {
   const { from, to, departureTime, arrivalTime, passengerArrivalTime, busId } =
     req.body;
+
+  if (
+    !from ||
+    !to ||
+    !departureTime ||
+    !arrivalTime ||
+    !passengerArrivalTime ||
+    !busId
+  ) {
+    res.status(401).json({
+      ok: false,
+      message: "make sure to fill all fields",
+    });
+  }
   try {
     const confirmingExistense = await prisma.route.findFirst({
       where: {

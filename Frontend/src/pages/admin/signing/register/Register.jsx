@@ -121,7 +121,6 @@ const Register = () => {
       const imageLink = await uploadingImage();
       if (imageLink) {
         data.photoUrl = imageLink;
-        delete data.confirmPassword;
         console.log(data);
         await postData(data);
         setIsLoading(false);
@@ -337,7 +336,7 @@ const Register = () => {
             </div>
           </div>
           {error && <p className="error">{error}</p>}
-          <button type="submit">
+          <button type="submit" disabled={isLoading}>
             {isLoading ? "give us a minute..." : "register"}
           </button>
         </form>

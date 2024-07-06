@@ -3,6 +3,13 @@ const prisma = new PrismaClient();
 
 const createBus = async (req, res) => {
   const { busNumber, seatsNumber } = req.body;
+
+  if (!busNumber || !seatsNumber) {
+    res.status(401).json({
+      ok: false,
+      message: "make sure you fill all the fields",
+    });
+  }
   try {
     const confirmBusExistence = await prisma.bus.findFirst({
       where: {

@@ -22,7 +22,7 @@ const AdminHeader = () => {
           </div>
           <div className="admin-picture">
             <picture>
-              <source srcset="" />
+              <source />
               <img src={adminProfile} alt="admin profile" />
             </picture>
           </div>

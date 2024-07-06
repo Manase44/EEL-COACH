@@ -22,3 +22,43 @@ tr {
 th {
   text-transform: capitalize;
 }
+
+/* ADDING EMPLOYEE MODAL */
+
+.adding-employee {
+  border: 1px solid var(--div-border);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius);
+  position: absolute;
+  left: 40%;
+  top: 30%;
+}
+.adding-employee-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+.adding-employee-header h3 {
+  text-transform: capitalize;
+}
+.adding-employee-header span {
+  cursor: pointer;
+}
+dialog::backdrop {
+  background-color: red;
+}
+.employee-number {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.employee-number .number {
+  padding: 0 0.5rem;
+  border-radius: var(--radius);
+  background-color: var(--div-border);
+  font-size: 20px;
+  font-weight: 600;
+}

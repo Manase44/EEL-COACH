@@ -1,18 +1,19 @@
 import { PrismaClient } from "@prisma/client";
 import bcrypt from "bcrypt";
-import generateToken from "../../utils/jwt.js";
+import { generateToken } from "../../utils/jwt.js";
 const prisma = new PrismaClient();
 
 const createEmployee = async (req, res) => {
   const {
     firstName,
     secondName,
+    employeeNumber,
     photoUrl,
     phoneNumber,
     email,
     gender,
     password,
-    employeeNumber,
+    confirmPassword,
   } = req.body;
 
   if (
@@ -99,7 +100,7 @@ const createEmployee = async (req, res) => {
       }
     }
   } catch (error) {
-    res.status(500).json({ ok: false, message: "something went wrong" });
+    res.status(500).json({ ok: false, message: error.message });
   }
 };
 
