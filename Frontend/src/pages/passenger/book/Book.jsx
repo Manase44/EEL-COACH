@@ -18,6 +18,24 @@ const Book = () => {
   const [busRoutes, setBusRoutes] = useState([]);
   const navigate = useNavigate();
 
+  /*
+  debbug
+  yup validation
+  managing the global states
+  picking the route id
+  adding the price--- this is after additting the database models(
+  re-configure the relaationship between the employee and employee number models
+  add fiels to bus(status(full/remaining seats), wifi, adjustable seats, ac, sockets, )
+  add fields to route(status(full/remaining seats))
+  )
+  remove the console logs
+  add header and footer
+  handle submission
+  handle redirect
+  REACT TESTING
+  RESPONSSIVENESS
+  */
+
   const validate = object({
     from: string().required("this field is required").trim(),
     to: string().required("this field is required").trim,
@@ -46,7 +64,6 @@ const Book = () => {
         const response = await axios.get(
           `${serverUrl}/admin/routes/${from.toLowerCase()}/${to.toLowerCase()}`,
         );
-        console.log(response.data);
         if (response.data.ok) {
           setBusRoutes(response.data.specificRoute);
           setObtainedRoute(true);
@@ -67,7 +84,7 @@ const Book = () => {
       <div className="booking-details-section-input-container">
         <form
           className="booking-details-form"
-          // onSubmit={formHandling.handleSubmit}
+          onSubmit={formHandling.handleSubmit}
         >
           <div className="form-input">
             <label htmlFor="from">from:</label>
@@ -150,10 +167,15 @@ const Book = () => {
               id="route"
               label="route"
             >
-              {busRoutes.map((route) => (
-                <div className="choosing-route">
+              {busRoutes.map((route, i) => (
+                <div className="choosing-route" key={i}>
                   <div>
-                    <input type="radio" name="route" id="routeId" />
+                    <input
+                      type="radio"
+                      name="route"
+                      id="routeId"
+                      value={route.routeId}
+                    />
                   </div>
                   <label htmlFor="routeId">
                     <p className="route-header">
@@ -182,7 +204,7 @@ const Book = () => {
             <p className="error">{errorObtainingRoute}</p>
           )}
 
-          <button type="submit" onClick={handleFindRoute}>
+          <button type="submit">
             {isLoading ? "give us a minute..." : "book"}
           </button>
         </form>
