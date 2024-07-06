@@ -4,6 +4,13 @@ const prisma = new PrismaClient();
 const getSpecifiedRoutes = async (req, res) => {
   const from = req.params.from;
   const to = req.params.to;
+
+  if (!from || !to) {
+    res
+      .status(401)
+      .json({ ok: false, message: "make sure to provide the from and to" });
+  }
+
   try {
     const gettingSpecifiedRoutes = await prisma.route.findMany({
       where: {

@@ -3,6 +3,11 @@ const prisma = new PrismaClient();
 
 const getSingleBusRoute = async (req, res) => {
   const busRouteId = req.params.id;
+
+  if (!busRouteId) {
+    res.status(401).json({ ok: false, message: "invalid request" });
+  }
+
   try {
     const gettingSingleBusRoute = await prisma.route.findUnique({
       where: {

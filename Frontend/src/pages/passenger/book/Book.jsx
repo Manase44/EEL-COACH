@@ -11,8 +11,11 @@ import axios from "axios";
 const Book = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const [isLoading, setIsLoading] = useState(false);
+  const [obtainedRoute, setObtainedRoute] = useState(false);
+  const [errorObtainingRoute, setErrorObtainingRoute] = useState(false);
   const [from, setFrom] = useState(null);
   const [to, setTo] = useState(null);
+  const [busRoutes, setBusRoutes] = useState([]);
   const navigate = useNavigate();
 
   const validate = object({
@@ -21,14 +24,15 @@ const Book = () => {
     noOfSeats: number().required("this field is required").min(1),
     date: date().required("this field is required"),
   });
+
   const formHandling = useFormik({
     initialValues: {
       from: "",
       to: "",
-      noOfSeats: "",
+      noOfSeats: "1",
       date: "",
     },
-    validationSchema: validate,
+    // validationSchema: validate,
     onSubmit: (data) => {
       setIsLoading(true);
       console.log(data);
@@ -36,20 +40,34 @@ const Book = () => {
     },
   });
 
-  useEffect(() => {
+  const handleFindRoute = async (e) => {
     try {
-      const response = axios.get(`${serverUrl}/admin/routes/${from}/${to}`);
-      console.log(response);
+      if (from && to) {
+        const response = await axios.get(
+          `${serverUrl}/admin/routes/${from.toLowerCase()}/${to.toLowerCase()}`,
+        );
+        console.log(response.data);
+        if (response.data.ok) {
+          setBusRoutes(response.data.specificRoute);
+          setObtainedRoute(true);
+          setErrorObtainingRoute(false);
+        }
+      }
     } catch (error) {
-      console.log(error);
+      setErrorObtainingRoute(error.response.data.message);
+      setObtainedRoute(false);
     }
-  }, [from]);
+  };
+  useEffect(() => {
+    handleFindRoute();
+  }, [from, to]);
+
   return (
     <section className="booking-details-section">
       <div className="booking-details-section-input-container">
         <form
           className="booking-details-form"
-          onSubmit={formHandling.handleSubmit}
+          // onSubmit={formHandling.handleSubmit}
         >
           <div className="form-input">
             <label htmlFor="from">from:</label>
@@ -58,8 +76,10 @@ const Book = () => {
                 type="text"
                 name="from"
                 id="from"
-                onChange={formHandling.handleChange}
-                value={formHandling.values.from}
+                onChange={(e) => {
+                  setFrom(e.target.value);
+                }}
+                value={from}
               />
               <div className="input-icon">
                 <MdOutlineLocationOn />
@@ -77,8 +97,10 @@ const Book = () => {
                 name="to"
                 id="to"
                 placeholder="to"
-                onChange={formHandling.handleChange}
-                value={formHandling.values.to}
+                onChange={(e) => {
+                  setTo(e.target.value);
+                }}
+                value={to}
               />
               <div className="input-icon">
                 <MdOutlineLocationOn />
@@ -121,27 +143,46 @@ const Book = () => {
               )}
             </div>
           </div>
-          <div className="available-routes-container">
-            <div className="route">
-              <p className="route-header">
-                Regular (Ksh. <span>1, 200</span>)
-              </p>
-              <div className="route-details">
-                <div className="from-location">
-                  <span className="time">7.00pm</span>
-                  <span className="location">malindi</span>
+
+          {obtainedRoute && (
+            <fieldset
+              className="available-routes-container"
+              id="route"
+              label="route"
+            >
+              {busRoutes.map((route) => (
+                <div className="choosing-route">
+                  <div>
+                    <input type="radio" name="route" id="routeId" />
+                  </div>
+                  <label htmlFor="routeId">
+                    <p className="route-header">
+                      Regular (Ksh. <span>1, 200</span>)
+                    </p>
+                    <div className="route-details">
+                      <div className="from-location">
+                        <span className="time">{route.departureTime}</span>
+                        <span className="location">{route.from}</span>
+                      </div>
+                      <div className="route-icon">
+                        <FaRoute />
+                      </div>
+                      <div className="to-location">
+                        <p className="time"> {route.arrivalTime}</p>
+                        <span className="location">{route.to}</span>
+                      </div>
+                    </div>
+                  </label>
                 </div>
-                <div className="route-icon">
-                  <FaRoute />
-                </div>
-                <div className="to-location">
-                  <p className="time"> 5.30am</p>
-                  <span className="location">nairobi</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <button type="submit">
+              ))}
+            </fieldset>
+          )}
+
+          {errorObtainingRoute && (
+            <p className="error">{errorObtainingRoute}</p>
+          )}
+
+          <button type="submit" onClick={handleFindRoute}>
             {isLoading ? "give us a minute..." : "book"}
           </button>
         </form>

@@ -4,13 +4,14 @@
   display: grid;
   place-content: center;
 }
-.booking-details-form,
-.available-routes-container {
-  background-color: var(--div-color);
+.booking-details-form {
+  /* background-color: var(--div-color); */
+  border: 1px solid var(--div-border);
   padding: 1rem 1.5rem;
   border-radius: var(--radius);
   margin: 1rem 0;
 }
+
 .form-input {
   display: grid;
   margin-bottom: 1rem;
@@ -37,7 +38,8 @@
 .form-input input[type="email"],
 .form-input input[type="password"],
 #password,
-#confirmPassword {
+#confirmPassword,
+.form-input input[type="date"] {
   text-transform: unset;
 }
 .input-icon svg {
@@ -57,6 +59,19 @@
 }
 .date {
   width: 70%;
+}
+.available-routes-container {
+  border: none;
+}
+.choosing-route {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+}
+.choosing-route label {
+  width: 95%;
 }
 .route {
   margin: 0.5rem 0;
