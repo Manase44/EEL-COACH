@@ -46,6 +46,13 @@ th {
 .adding-employee-header span {
   cursor: pointer;
 }
+.adding-employee-header span svg {
+  font-size: 20px;
+  fill: var(--main-color);
+}
+.adding-employee-header span svg:hover {
+  fill: red;
+}
 dialog::backdrop {
   background-color: red;
 }

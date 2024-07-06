@@ -9,7 +9,9 @@ const Employees = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const [modalOpen, setModalOpen] = useState(false);
   const [isGeneratng, setIsGenerating] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [code, setCode] = useState();
+  const [err, setErr] = useState();
 
   const handleModalToggle = () => {
     if (modalOpen) {
@@ -28,10 +30,27 @@ const Employees = () => {
       setIsGenerating(false);
     } catch (error) {
       console.log(error);
+      setErr(error);
       setIsGenerating(false);
     }
   };
 
+  const handleSubmitCode = async () => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(`${serverUrl}/admin/empcode`, {
+        employeeNumber: code,
+      });
+      if (response.data.ok === true) {
+        setModalOpen(false);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+      setErr(error);
+      setIsLoading(false);
+    }
+  };
   return (
     <div className="portal-container">
       <Aside />
@@ -54,13 +73,16 @@ const Employees = () => {
             {code ? (
               <div className="employee-number">
                 <span className="number">{code}</span>
-                <button>add</button>
+                <button onClick={handleSubmitCode}>
+                  {isLoading ? "adding..." : "add"}
+                </button>
               </div>
             ) : (
               <button onClick={generateEmployeeCode}>
                 {isGeneratng ? "generating..." : "generate employee number"}
               </button>
             )}
+            {err && <p className="error">{err}</p>}
           </dialog>
         </div>
       </main>
