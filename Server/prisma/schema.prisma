@@ -35,7 +35,6 @@ model Bus {
   numberOfSeats Int
   rearSeat Int
   numberOfRows Int
-  numberOfSeatInRow Int
   wifi Boolean
   adjustableSeat Boolean
   ac Boolean
@@ -52,7 +51,7 @@ model Route {
   departureTime String
   arrivalTime String
   passengerArrivalTime String
-  price String
+  price Int
 
   @@unique([from , to, departureTime, arrivalTime, passengerArrivalTime])
 

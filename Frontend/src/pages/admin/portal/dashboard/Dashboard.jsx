@@ -40,20 +40,18 @@ const Dashboard = () => {
               </tr>
             ))}
           </thead>
-          {/* <tbody {...getTableBodyProps()}>
+          <tbody {...getTableBodyProps()}>
             {rows.map((row) => {
-              prepareRow(row)
+              prepareRow(row);
               return (
                 <tr {...row.getRowProps()}>
                   {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}>
-                      {cell.render("cell")}
-                    </td>
+                    <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
                   ))}
                 </tr>
-              )
+              );
             })}
-          </tbody> */}
+          </tbody>
         </table>
       </main>
     </div>

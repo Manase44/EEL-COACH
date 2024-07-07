@@ -11,15 +11,40 @@ import seatNumberStore from "../../../store/seatsNumber.store";
 import { useFormik } from "formik";
 import { number, object, string } from "yup";
 import PhoneInput from "react-phone-number-input/input";
-import { useState } from "react";
+import { useState, useEffect, useMemo } from "react";
+import axios from "axios";
 
 const Pay = () => {
+  const serverUrl = import.meta.env.VITE_SERVER_URL;
   const route = chosenRouteStore((state) => state.chosenRouteId);
   const numberOfSeats = numberOfSeatsStore((state) => state.numberOfSeats);
   const travellingDate = travellingDateStore((state) => state.travellngDate);
   const selectedSeats = seatNumberStore((state) => state.seatNumber);
+  const [busRoute, setBusRoutes] = useState({});
+  const [totalFare, setTotalFare] = useState();
 
   const navigate = useNavigate();
+
+  const getRouteDetails = async (routespecialid) => {
+    try {
+      const response = await axios.get(
+        `${serverUrl}/admin/routes/${routespecialid}`,
+      );
+      console.log(response.data.busRoute);
+      setBusRoutes(response.data.busRoute);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
+
+  const submitBooking = async (data) => {
+    try {
+      const response = await axios.post(`${serverUrl}/booking`);
+      console.log(response);
+    } catch (error) {
+      console.log(error.response.data);
+    }
+  };
 
   const validation = object({
     name: string().required("this field is required").lowercase(),
@@ -44,16 +69,27 @@ const Pay = () => {
     },
     validationSchema: validation,
     onSubmit: (data) => {
-      console.log(data);
       data.routeId = route;
       data.noOfSeats = numberOfSeats;
       data.selectedSeats = selectedSeats;
       data.travellingDate = travellingDate;
-
-      navigate("/done");
+      console.log(data);
+      submitBooking(data);
+      // navigate("/done");
     },
   });
 
+  useEffect(() => {
+    getRouteDetails(route);
+  }, []);
+
+  const calculateTotalFare = (unitPrice, seatNumber) => {
+    return unitPrice * seatNumber;
+  };
+
+  useMemo(() => {
+    setTotalFare(calculateTotalFare(busRoute.price, numberOfSeats));
+  }, [busRoute]);
   return (
     <section className="payment-section">
       <h1 className="section-title">payment details</h1>
@@ -136,15 +172,15 @@ const Pay = () => {
             </p>
             <div className="route-details">
               <div className="from-location">
-                <span className="time">7.00pm</span>
-                <span className="location">malindi</span>
+                <span className="time">{busRoute.departureTime}</span>
+                <span className="location">{busRoute.from}</span>
               </div>
               <div className="route-icon">
                 <FaRoute />
               </div>
               <div className="to-location">
-                <p className="time"> 5.30am</p>
-                <span className="location">nairobi</span>
+                <p className="time"> {busRoute.arrivalTime}</p>
+                <span className="location">{busRoute.to}</span>
               </div>
             </div>
           </div>
@@ -152,7 +188,7 @@ const Pay = () => {
           <div className="summary">
             <div className="summary-item">
               <span>price:</span>
-              <span>Ksh. 1, 200</span>
+              <span>Ksh. {busRoute.price}</span>
             </div>
             <div className="summary-item">
               <span>seats:</span>
@@ -162,7 +198,7 @@ const Pay = () => {
             </div>
             <div className="summary-item total">
               <span>Total Fare:</span>
-              <span>Ksh. 1, 200</span>
+              <span>Ksh. {totalFare}</span>
             </div>
           </div>
         </div>

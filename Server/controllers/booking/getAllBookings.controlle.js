@@ -4,7 +4,7 @@ const prisma = new PrismaClient();
 const getAllBookings = async (req, res) => {
   try {
     const gettingAllBookings = await prisma.book.findMany();
-    if (!gettingAllBookings) {
+    if (gettingAllBookings.length < 1) {
       res.status(404).json({ ok: false, message: "No bookings available" });
     } else {
       res.status(200).json({ ok: true, bookings: gettingAllBookings });

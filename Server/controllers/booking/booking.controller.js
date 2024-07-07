@@ -21,25 +21,28 @@ const booking = async (req, res) => {
     !noOfSeats ||
     !selectedSeats
   ) {
-    res.status(401).json({ ok: false, message: "invalid booking" });
-  }
-  try {
-    const registerBooking = await prisma.booking.create({
-      data: {
-        name,
-        phoneNumber,
-        idNumber,
-        routeId,
-        travellingDate,
-        noOfSeats,
-        selectedSeats,
-      },
-    });
-    if (registerBooking) {
-      res.status(201).json({ ok: true, message: "booking was successfully" });
+    res
+      .status(400)
+      .json({ ok: false, message: "some fields are missing", fname: name });
+  } else {
+    try {
+      const registerBooking = await prisma.book.create({
+        data: {
+          passengerName: name,
+          passengerPhone: phoneNumber,
+          passengerID: idNumber,
+          routeId,
+          travellingDate,
+          numberOfSeats: noOfSeats,
+          selectedSeat: selectedSeats,
+        },
+      });
+      if (registerBooking) {
+        res.status(201).json({ ok: true, message: "booking was successfully" });
+      }
+    } catch (error) {
+      res.status(500).json({ ok: false, message: "something went wrong" });
     }
-  } catch (error) {
-    res.status(500).json({ ok: false, message: "something went wrong" });
   }
 };
 
