@@ -1,18 +1,20 @@
 import "../Signing.css";
 import logo from "../../../../assets/favicon.png";
 import googleLogo from "../../../../assets/google.png";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import { GoEye, GoEyeClosed } from "react-icons/go";
 import { MdOutlineMail } from "react-icons/md";
 import { useState } from "react";
 import { object, string } from "yup";
+import axios from "axios";
 
 const Login = () => {
+  const serverUrl = import.meta.env.VITE_SERVER_URL;
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
-
+  const navigate = useNavigate();
   const handleShowPassword = () => {
     if (!showPassword) {
       setShowPassword(true);
@@ -21,6 +23,24 @@ const Login = () => {
     }
   };
 
+  const submitLogins = async (logins) => {
+    setIsLoading(true);
+    try {
+      const response = await axios.post(
+        `${serverUrl}/admin/employees/login`,
+        logins,
+      );
+      if (response) {
+        navigate("/admin/dashboard");
+        setIsLoading(false);
+        setError(false);
+        console.log(response);
+      }
+    } catch (error) {
+      setError(error.response.data.message);
+      setIsLoading(false);
+    }
+  };
   const validation = object({
     email: string().email("invalid email address").required(),
     password: string()
@@ -37,6 +57,7 @@ const Login = () => {
     validationSchema: validation,
     onSubmit: (data) => {
       console.log(data);
+      submitLogins(data);
     },
   });
   return (
@@ -79,7 +100,7 @@ const Login = () => {
             <div className="input-wrapper">
               <input
                 className="password"
-                type="password"
+                type={showPassword ? "text" : "password"}
                 name="password"
                 id="password"
                 onChange={signingFormHandling.handleChange}
@@ -100,7 +121,7 @@ const Login = () => {
             <Link>forgot password?</Link>
           </p>
 
-          {error && <p className="error">invalid</p>}
+          {error && <p className="error">{error}</p>}
           <button type="submit" disabled={isLoading}>
             {isLoading ? "we are setting up things for you..." : "login"}
           </button>

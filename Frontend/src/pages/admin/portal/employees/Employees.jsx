@@ -28,10 +28,12 @@ const Employees = () => {
       const response = await axios.get(`${serverUrl}/admin/empcode/generator`);
       setCode(response.data.code);
       setIsGenerating(false);
+      console.log(response.data);
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
       setErr(error);
       setIsGenerating(false);
+      setIsLoading(false);
     }
   };
 
@@ -43,6 +45,7 @@ const Employees = () => {
       });
       if (response.data.ok === true) {
         setModalOpen(false);
+        setCode(null);
       }
       setIsLoading(false);
     } catch (error) {

@@ -33,11 +33,10 @@ const employeeLogin = async (req, res) => {
       }
     } else {
       error.push("Invalid logins");
-      res.status(400).res.json({ ok: false, message: error });
+      res.status(400).json({ ok: false, message: error });
     }
   } catch (error) {
-    token;
-    res.status(500).json({ ok: false, message: "something went wrong" });
+    res.status(500).json({ ok: false, message: error.message });
   }
 };
 

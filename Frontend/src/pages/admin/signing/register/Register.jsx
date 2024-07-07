@@ -77,7 +77,9 @@ const Register = () => {
     console.log("posting data...");
     try {
       const response = await axios.post(`${serverUrl}/admin/employees`, data);
-      navigate("/login");
+      if (response.data.ok) {
+        navigate("/login");
+      }
       console.log(response);
     } catch (error) {
       console.log(error);

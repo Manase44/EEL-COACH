@@ -7,6 +7,7 @@ import bus from "./routes/buses.routes.js";
 import employeeRouter from "./routes/employee.routes.js";
 import employeeNumberRouter from "./routes/employeeNumbers.routes.js";
 import bookRoutes from "./routes/book.routes.js";
+import authenticate from "./middleware/routeAuth.middleware.js";
 const app = e();
 const port = process.env.PORT;
 
