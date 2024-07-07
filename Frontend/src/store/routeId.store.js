@@ -1,12 +1,11 @@
-import { create } from "zustand"
+import { create } from "zustand";
 
-const choosenRouteStore = create((set) => {
-    choosenRouteId:"",
-    ChoosenRouteId: (passedId) => {
-        set({
-            choosenRouteId:passedId
-        })
-    }
-})
+const chosenRouteStore = create((set) => ({
+  chosenRouteId: "",
+  setChosenRouteId: (passedId) =>
+    set({
+      chosenRouteId: passedId,
+    }),
+}));
 
-export default choosenRouteStore;
+export default chosenRouteStore;

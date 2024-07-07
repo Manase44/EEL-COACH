@@ -1,6 +1,10 @@
 import "./ChooseSeat.css";
 import { useNavigate } from "react-router-dom";
+import chosenRouteStore from "../../../store/routeId.store";
+
 const ChooseSeat = () => {
+  const routeId = chosenRouteStore((state) => state.chosenRouteId);
+
   const navigate = useNavigate();
   const handleChooseSeat = () => {
     navigate("/payments");

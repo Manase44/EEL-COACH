@@ -7,53 +7,42 @@ import { useFormik } from "formik";
 import { useState, useEffect } from "react";
 import { date, number, object, string } from "yup";
 import axios from "axios";
+import chosenRouteStore from "../../../store/routeId.store";
 
 const Book = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
   const [isLoading, setIsLoading] = useState(false);
   const [obtainedRoute, setObtainedRoute] = useState(false);
   const [errorObtainingRoute, setErrorObtainingRoute] = useState(false);
-  const [from, setFrom] = useState(null);
-  const [to, setTo] = useState(null);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
   const [busRoutes, setBusRoutes] = useState([]);
+  const setRoute = chosenRouteStore((state) => state.setChosenRouteId);
+
   const navigate = useNavigate();
 
-  /*
-  debbug
-  yup validation
-  managing the global states
-  picking the route id
-  adding the price--- this is after additting the database models(
-  re-configure the relaationship between the employee and employee number models
-  add fiels to bus(status(full/remaining seats), wifi, adjustable seats, ac, sockets, )
-  add fields to route(status(full/remaining seats))
-  )
-  remove the console logs
-  add header and footer
-  handle submission
-  handle redirect
-  REACT TESTING
-  RESPONSSIVENESS
-  */
-
   const validate = object({
-    from: string().required("this field is required").trim(),
-    to: string().required("this field is required").trim,
-    noOfSeats: number().required("this field is required").min(1),
-    date: date().required("this field is required"),
+    route: string().required("please select a route"),
+    noOfSeats: number()
+      .required("this field is required")
+      .min(1, "must be atleast one")
+      .positive(),
+    date: date()
+      .required("this field is required")
+      .min(new Date(), "date must be in the future"),
   });
 
   const formHandling = useFormik({
     initialValues: {
-      from: "",
-      to: "",
       noOfSeats: "1",
       date: "",
+      route: "",
     },
-    // validationSchema: validate,
+    validationSchema: validate,
     onSubmit: (data) => {
       setIsLoading(true);
-      console.log(data);
+      setRoute(data.route);
+      navigate("/chooseseat");
       setIsLoading(false);
     },
   });
@@ -104,9 +93,6 @@ const Book = () => {
                 <MdOutlineLocationOn />
               </div>
             </div>
-            {formHandling.errors.from && (
-              <p className="error">{formHandling.errors.from}</p>
-            )}
           </div>
           <div className="form-input">
             <label htmlFor="to">to:</label>
@@ -125,9 +111,6 @@ const Book = () => {
                 <MdOutlineLocationOn />
               </div>
             </div>
-            {formHandling.errors.to && (
-              <p className="error">{formHandling.errors.to}</p>
-            )}
           </div>
           <div className="seat-date">
             <div className="form-input seat">
@@ -164,22 +147,19 @@ const Book = () => {
           </div>
 
           {obtainedRoute && (
-            <fieldset
-              className="available-routes-container"
-              id="route"
-              label="route"
-            >
+            <fieldset className="available-routes-container">
               {busRoutes.map((route, i) => (
                 <div className="choosing-route" key={i}>
                   <div>
                     <input
                       type="radio"
                       name="route"
-                      id="routeId"
-                      value={route.routeId}
+                      id={`route${i}`}
+                      onChange={formHandling.handleChange}
+                      value={route.routeid}
                     />
                   </div>
-                  <label htmlFor="routeId">
+                  <label htmlFor={`route${i}`}>
                     <p className="route-header">
                       Regular (Ksh. <span>1, 200</span>)
                     </p>
@@ -199,6 +179,9 @@ const Book = () => {
                   </label>
                 </div>
               ))}
+              {formHandling.errors.route && (
+                <p className="error">{formHandling.errors.route}</p>
+              )}
             </fieldset>
           )}
 

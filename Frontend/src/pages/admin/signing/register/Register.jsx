@@ -129,7 +129,23 @@ const Register = () => {
       }
     },
   });
-
+  /*
+  debbug
+  yup validation
+  managing the global states
+  picking the route id
+  adding the price--- this is after additting the database models(
+  re-configure the relaationship between the employee and employee number models
+  add fiels to bus(status(full/remaining seats), wifi, adjustable seats, ac, sockets, )
+  add fields to route(status(full/remaining seats))
+  )
+  remove the console logs
+  add header and footer
+  handle submission
+  handle redirect
+  REACT TESTING
+  RESPONSSIVENESS
+  */
   return (
     <section className="signing-section">
       <div className="main-registering-container">
