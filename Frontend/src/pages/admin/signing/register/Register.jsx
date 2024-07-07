@@ -130,12 +130,7 @@ const Register = () => {
     },
   });
   /*
-  adding the price--- this is after additting the database models(
-  re-configure the relaationship between the employee and employee number models
-  add fields to bus(status(full/remaining seats), wifi, adjustable seats, ac, sockets, )
-  add fields to route(status(full/remaining seats))
-  )
-  remove the console logs
+    remove the console logs
   add header and footer
   REACT TESTING
   RESPONSSIVENESS
