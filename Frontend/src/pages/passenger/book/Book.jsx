@@ -8,6 +8,8 @@ import { useState, useEffect } from "react";
 import { date, number, object, string } from "yup";
 import axios from "axios";
 import chosenRouteStore from "../../../store/routeId.store";
+import numberOfSeatsStore from "../../../store/numberOfSeats.store";
+import travellingDateStore from "../../../store/date.store";
 
 const Book = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
@@ -18,6 +20,12 @@ const Book = () => {
   const [to, setTo] = useState("");
   const [busRoutes, setBusRoutes] = useState([]);
   const setRoute = chosenRouteStore((state) => state.setChosenRouteId);
+  const setNumberOfSeats = numberOfSeatsStore(
+    (state) => state.setNumberOfSeats,
+  );
+  const setTravellingDate = travellingDateStore(
+    (state) => state.setTravellingDate,
+  );
 
   const navigate = useNavigate();
 
@@ -42,6 +50,8 @@ const Book = () => {
     onSubmit: (data) => {
       setIsLoading(true);
       setRoute(data.route);
+      setNumberOfSeats(data.noOfSeats);
+      setTravellingDate(data.date);
       navigate("/chooseseat");
       setIsLoading(false);
     },

@@ -2,8 +2,15 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const createNewBusRoute = async (req, res) => {
-  const { from, to, departureTime, arrivalTime, passengerArrivalTime, busId } =
-    req.body;
+  const {
+    from,
+    to,
+    departureTime,
+    arrivalTime,
+    passengerArrivalTime,
+    price,
+    busId,
+  } = req.body;
 
   if (
     !from ||
@@ -11,6 +18,7 @@ const createNewBusRoute = async (req, res) => {
     !departureTime ||
     !arrivalTime ||
     !passengerArrivalTime ||
+    !price ||
     !busId
   ) {
     res.status(401).json({
@@ -53,6 +61,7 @@ const createNewBusRoute = async (req, res) => {
             departureTime,
             arrivalTime,
             passengerArrivalTime,
+            price,
             busId,
           },
         });

@@ -2,9 +2,31 @@ import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
 
 const createBus = async (req, res) => {
-  const { busNumber, seatsNumber } = req.body;
+  const {
+    busNumber,
+    numberOfSeats,
+    rearSeat,
+    numberOfRows,
+    numberOfSeatInRow,
+    wifi,
+    adjustableSeat,
+    ac,
+    sockets,
+    luggageCompartment,
+  } = req.body;
 
-  if (!busNumber || !seatsNumber) {
+  if (
+    !busNumber ||
+    !numberOfSeats ||
+    !rearSeat ||
+    !numberOfRows ||
+    !numberOfSeatInRow ||
+    !wifi ||
+    !adjustableSeat ||
+    !ac ||
+    !sockets ||
+    !luggageCompartment
+  ) {
     res.status(401).json({
       ok: false,
       message: "make sure you fill all the fields",
@@ -26,7 +48,15 @@ const createBus = async (req, res) => {
       const creatingNewBus = await prisma.bus.create({
         data: {
           busNumber,
-          seatsNumber,
+          numberOfSeats,
+          rearSeat,
+          numberOfRows,
+          numberOfSeatInRow,
+          wifi,
+          adjustableSeat,
+          ac,
+          sockets,
+          luggageCompartment,
         },
       });
       if (creatingNewBus) {

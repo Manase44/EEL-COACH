@@ -23,16 +23,24 @@ model Employee {
   employeePassword String
   employeeRole String @default("employee")
  
-  number Employee_number @relation(fields: [employeeNumber], references: [employeeNumber], onDelete: Cascade, onUpdate: Cascade)
   employeeNumber String @unique
-
+  number Employee_number @relation(fields: [employeeNumber], references: [employeeNumber], onDelete: Cascade)
+  
   office Office?
 }
 
 model Bus {
   busId String @id @default(uuid())
   busNumber String @unique
-  seatsNumber Int
+  numberOfSeats Int
+  rearSeat Int
+  numberOfRows Int
+  numberOfSeatInRow Int
+  wifi Boolean
+  adjustableSeat Boolean
+  ac Boolean
+  sockets Boolean
+  luggageCompartment Boolean
 
   busRoute Route[]
 }
@@ -44,12 +52,14 @@ model Route {
   departureTime String
   arrivalTime String
   passengerArrivalTime String
-  // add price
+  price String
 
   @@unique([from , to, departureTime, arrivalTime, passengerArrivalTime])
 
   busUsed Bus @relation(fields: [busId], references: [busId])
   busId String @unique
+
+  bookings Book[]
 }
 
 model Office {
@@ -63,3 +73,15 @@ model Office {
   employeeId String @unique
 }
 
+model Book {
+  bookId String @id @default(uuid())
+  passengerName String
+  passengerPhone String
+  passengerID String 
+  travellingDate String
+  selectedSeat String[]
+  numberOfSeats Int
+  
+  routeBooked Route @relation(fields: [routeId], references: [routeid])
+  routeId String @unique
+}

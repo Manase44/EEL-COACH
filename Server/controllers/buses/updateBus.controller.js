@@ -3,7 +3,18 @@ const prisma = new PrismaClient();
 
 const updateBus = async (req, res) => {
   const busId = req.params.id;
-  const { busNumber, seatsNumber } = req.body;
+  const {
+    busNumber,
+    numberOfSeats,
+    rearSeat,
+    numberOfRows,
+    numberOfSeatInRow,
+    wifi,
+    adjustableSeat,
+    ac,
+    sockets,
+    luggageCompartment,
+  } = req.body;
   try {
     const confirmBusExistence = await prisma.bus.findUnique({
       where: {
@@ -17,7 +28,15 @@ const updateBus = async (req, res) => {
         },
         data: {
           busNumber,
-          seatsNumber,
+          numberOfSeats,
+          rearSeat,
+          numberOfRows,
+          numberOfSeatInRow,
+          wifi,
+          adjustableSeat,
+          ac,
+          sockets,
+          luggageCompartment,
         },
       });
       if (updatingBusDetails) {

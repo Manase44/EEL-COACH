@@ -39,8 +39,9 @@
 .form-input input[type="password"],
 #password,
 #confirmPassword,
-.form-input input[type="date"] {
-  text-transform: unset;
+.form-input input[type="date"],
+input::placeholder {
+  text-transform: none;
 }
 .input-icon svg {
   color: var(--main-color);

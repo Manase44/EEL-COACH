@@ -2,11 +2,10 @@ import { create } from "zustand";
 
 const travellingDateStore = create((set) => ({
   travellngDate: "",
-  setTravellingDate: (passedDate) => {
+  setTravellingDate: (passedDate) =>
     set({
       travellngDate: passedDate,
-    });
-  },
+    }),
 }));
 
 export default travellingDateStore;

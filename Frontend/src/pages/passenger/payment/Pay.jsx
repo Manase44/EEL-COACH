@@ -4,22 +4,56 @@ import paypalLogo from "../../../assets/paypal.png";
 import mastercardLogo from "../../../assets/mastercard.png";
 import { FaRoute, FaRegCalendarAlt } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-
+import travellingDateStore from "../../../store/date.store";
+import numberOfSeatsStore from "../../../store/numberOfSeats.store";
+import chosenRouteStore from "../../../store/routeId.store";
+import seatNumberStore from "../../../store/seatsNumber.store";
 import { useFormik } from "formik";
+import { number, object, string } from "yup";
+import PhoneInput from "react-phone-number-input/input";
+import { useState } from "react";
 
 const Pay = () => {
+  const route = chosenRouteStore((state) => state.chosenRouteId);
+  const numberOfSeats = numberOfSeatsStore((state) => state.numberOfSeats);
+  const travellingDate = travellingDateStore((state) => state.travellngDate);
+  const selectedSeats = seatNumberStore((state) => state.seatNumber);
+
   const navigate = useNavigate();
+
+  const validation = object({
+    name: string().required("this field is required").lowercase(),
+    idNumber: string()
+      .required("this field is required")
+      .matches(/^\d+$/, "invalid ID"),
+    phoneNumber: string()
+      .required("this field is required")
+      .min(13, "ID Number must be at least 9 digits")
+      .max(13, "ID Number must be at most 10 digits"),
+  });
+
   const handleForm = useFormik({
     initialValues: {
       name: "",
       idNumber: "",
       phoneNumber: "",
+      routeId: "",
+      noOfSeats: "",
+      selectedSeats: "",
+      travellingDate: "",
+    },
+    validationSchema: validation,
+    onSubmit: (data) => {
+      console.log(data);
+      data.routeId = route;
+      data.noOfSeats = numberOfSeats;
+      data.selectedSeats = selectedSeats;
+      data.travellingDate = travellingDate;
+
+      navigate("/done");
     },
   });
 
-  const handlePay = () => {
-    navigate("/done");
-  };
   return (
     <section className="payment-section">
       <h1 className="section-title">payment details</h1>
@@ -39,12 +73,13 @@ const Pay = () => {
               </div>
             </div>
           </div>
-          <form className="payment-form">
+          <form className="payment-form" onSubmit={handleForm.handleSubmit}>
             <h2 className="mini-title">traveller details</h2>
             <div className="form-input pay">
               <label htmlFor="name">name:</label>
               <div className="input-wrapper">
                 <input
+                  placeholder="e.g Manase Gunga"
                   type="text"
                   name="name"
                   id="name"
@@ -52,11 +87,15 @@ const Pay = () => {
                   value={handleForm.values.name}
                 />
               </div>
+              {handleForm.errors.name && (
+                <p className="error">{handleForm.errors.name}</p>
+              )}
             </div>
             <div className="form-input">
               <label htmlFor="idNumber">ID Number:</label>
               <div className="input-wrapper">
                 <input
+                  placeholder="e.g 14763923"
                   type="number"
                   name="idNumber"
                   id="idNumber"
@@ -64,23 +103,28 @@ const Pay = () => {
                   values={handleForm.values.idNumber}
                 />
               </div>
+              {handleForm.errors.idNumber && (
+                <p className="error">{handleForm.errors.idNumber}</p>
+              )}
             </div>
             <div className="form-input">
-              <label htmlFor="phoneNumber">Phone Number:</label>
               <div className="input-wrapper">
-                <input
-                  type="tel"
-                  name="phoneNumber"
-                  id="phoneNumber"
-                  onChange={handleForm.handleChange}
-                  values={handleForm.values.phoneNumber}
+                <label htmlFor="phoneNumber">Phone Number:</label>
+                <PhoneInput
+                  placeholder="e.g 0711223344"
+                  country="KE"
+                  value={handleForm.values.phoneNumber}
+                  onChange={(value) =>
+                    handleForm.setFieldValue("phoneNumber", value)
+                  }
                 />
               </div>
+              {handleForm.errors.phoneNumber && (
+                <p className="error">{handleForm.errors.phoneNumber}</p>
+              )}
             </div>
 
-            <button type="submit" onClick={handlePay}>
-              pay fare
-            </button>
+            <button type="submit">pay fare</button>
           </form>
         </div>
 
@@ -88,7 +132,7 @@ const Pay = () => {
           <h2 className="mini-title">book summary</h2>
           <div className="summary">
             <p className="book-summary-date">
-              <FaRegCalendarAlt /> 17/2/2025
+              <FaRegCalendarAlt /> {travellingDate}
             </p>
             <div className="route-details">
               <div className="from-location">
@@ -112,7 +156,9 @@ const Pay = () => {
             </div>
             <div className="summary-item">
               <span>seats:</span>
-              <span>1 Seat</span>
+              <span>
+                {numberOfSeats} {numberOfSeats > 1 ? "seats" : "seat"}
+              </span>
             </div>
             <div className="summary-item total">
               <span>Total Fare:</span>
