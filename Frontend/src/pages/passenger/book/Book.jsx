@@ -81,6 +81,8 @@ const Book = () => {
 
   return (
     <section className="booking-details-section">
+      <h1 className="section-title">travelling details</h1>
+
       <div className="booking-details-section-input-container">
         <form
           className="booking-details-form"
@@ -204,7 +206,7 @@ const Book = () => {
             <p className="error">{errorObtainingRoute}</p>
           )}
 
-          <button type="submit">
+          <button type="submit" disabled={isLoading}>
             {isLoading ? "give us a minute..." : "book"}
           </button>
         </form>

@@ -7,8 +7,22 @@ const ChooseSeat = () => {
   };
   return (
     <section className="choose-seat-section">
-      <div className="key"></div>
-      <button onClick={handleChooseSeat}>choose seat</button>
+      <h1 className="section-title">choose seat</h1>
+      <main className="choose-seat-content">
+        <div className="seats-arrangement-model"></div>
+        <div className="content-side-division">
+          <div className="key">
+            <p>availble seat</p>
+            <p>accupied seat</p>
+            <p>selected seat</p>
+          </div>
+          <div className="seats-selected">
+            <p>you selected seat number:</p>
+            <span>4, 10</span>
+            <button onClick={handleChooseSeat}>choose seat</button>
+          </div>
+        </div>
+      </main>
     </section>
   );
 };
