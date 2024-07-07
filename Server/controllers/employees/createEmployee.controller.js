@@ -26,7 +26,9 @@ const createEmployee = async (req, res) => {
     !password ||
     !employeeNumber
   ) {
-    res.status(400).json({ ok: false, message: "please provide all details" });
+    return res
+      .status(400)
+      .json({ ok: false, message: "please provide all details" });
   }
 
   try {
@@ -37,70 +39,66 @@ const createEmployee = async (req, res) => {
     });
     const confirmingPhoneExistence = await prisma.employee.findFirst({
       where: {
-        employeeEmailAddress: email,
+        employeePhoneNumber: phoneNumber,
       },
     });
     if (confirmingEmailExistence || confirmingPhoneExistence) {
-      res.status(400).json({ ok: false, message: "The user exists" });
-    } else {
-      const confirmingEmployeeNumberExistence =
-        await prisma.employee_number.findUnique({
-          where: {
-            employeeNumber,
-          },
-        });
-      const confirmingIfNumberAlreadySigned = await prisma.employee.findUnique({
+      return res.status(400).json({ ok: false, message: "The user exists" });
+    }
+
+    const confirmingEmployeeNumberExistence =
+      await prisma.employee_number.findUnique({
         where: {
           employeeNumber,
         },
       });
-      if (
-        !confirmingEmployeeNumberExistence ||
-        confirmingIfNumberAlreadySigned
-      ) {
-        res.status(400).json({ ok: false, message: "Invalid Number" });
-      } else {
-        const hashedPassword = bcrypt.hashSync(password, 10);
-        const creatingNewEmployee = await prisma.employee.create({
-          data: {
-            employeeFirstName: firstName,
-            employeeSecondName: secondName,
-            employeePhotoUrl: photoUrl,
-            employeePhoneNumber: phoneNumber,
-            employeeEmailAddress: email,
-            employeeGender: gender,
-            employeePassword: hashedPassword,
-            employeeNumber,
-          },
+    const confirmingIfNumberAlreadySigned = await prisma.employee.findUnique({
+      where: {
+        employeeNumber,
+      },
+    });
+    if (!confirmingEmployeeNumberExistence || confirmingIfNumberAlreadySigned) {
+      return res.status(400).json({ ok: false, message: "Invalid Number" });
+    }
+    const hashedPassword = bcrypt.hashSync(password, 10);
+    const creatingNewEmployee = await prisma.employee.create({
+      data: {
+        employeeFirstName: firstName,
+        employeeSecondName: secondName,
+        employeePhotoUrl: photoUrl,
+        employeePhoneNumber: phoneNumber,
+        employeeEmailAddress: email,
+        employeeGender: gender,
+        employeePassword: hashedPassword,
+        employeeNumber,
+      },
+    });
+    if (creatingNewEmployee) {
+      const payload = {
+        employeeId: creatingNewEmployee.employeeId,
+        employeeEmailAddress: creatingNewEmployee.employeeEmailAddress,
+        employeeFirstName: creatingNewEmployee.employeeFirstName,
+        employeeSecondName: creatingNewEmployee.employeeSecondName,
+        employeePhotoUrl: creatingNewEmployee.employeePhotoUrl,
+        employeeGender: creatingNewEmployee.employeeGender,
+        employeeNumber: creatingNewEmployee.employeeNumber,
+        employeePhoneNumber: creatingNewEmployee.employeePhoneNumber,
+      };
+
+      const access_token = generateToken(payload);
+
+      return res
+        .cookie("access_token", access_token, {
+          httpOnly: true,
+        })
+        .status(201)
+        .json({
+          ok: true,
+          message: "The employee was created successfully",
         });
-        if (creatingNewEmployee) {
-          const payload = {
-            employeeId: creatingNewEmployee.employeeId,
-            employeeEmailAddress: creatingNewEmployee.employeeEmailAddress,
-            employeeFirstName: creatingNewEmployee.employeeFirstName,
-            employeeSecondName: creatingNewEmployee.employeeSecondName,
-            employeePhotoUrl: creatingNewEmployee.employeePhotoUrl,
-            employeeGender: creatingNewEmployee.employeeGender,
-            employeeNumber: creatingNewEmployee.employeeNumber,
-            employeePhoneNumber: creatingNewEmployee.employeePhoneNumber,
-          };
-
-          const access_token = generateToken(payload);
-
-          res
-            .status(201)
-            .json({
-              ok: true,
-              message: "The employee was created successfully",
-            })
-            .cookie("access_token", access_token, {
-              httpOnly: true,
-            });
-        }
-      }
     }
   } catch (error) {
-    res.status(500).json({ ok: false, message: error.message });
+    return res.status(500).json({ ok: false, message: error.message });
   }
 };
 
