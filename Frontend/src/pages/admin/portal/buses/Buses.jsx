@@ -3,6 +3,7 @@ import Aside from "../../../../components/aside/Aside";
 import AdminHeader from "../../../../components/adminHeader/AdminHeader";
 import { useEffect, useState, useMemo } from "react";
 import { useTable } from "react-table";
+import Modal from "../../../../components/modal/Modal";
 import axios from "axios";
 
 const Buses = () => {
@@ -10,6 +11,7 @@ const Buses = () => {
   const [allBuses, setAllBuses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
+  const [openModal, setOpenModal] = useState(false);
 
   const columns = useMemo(
     () => [
@@ -36,7 +38,7 @@ const Buses = () => {
       setIsLoading(false);
     } catch (error) {
       setError(error.response.data.message);
-      setIsLoading(fasle);
+      setIsLoading(false);
     }
   };
 
@@ -51,9 +53,23 @@ const Buses = () => {
         <div className="main-content-label">
           <h2 className="main-content-title">available buses</h2>
           <div className="label-cta">
-            <button>add bus</button>
+            <button
+              onClick={() => {
+                setOpenModal(true);
+              }}
+            >
+              add bus
+            </button>
           </div>
         </div>
+        <Modal
+          open={openModal}
+          close={() => {
+            setOpenModal(false);
+          }}
+          title="adding a bus"
+          content="This is the modal content"
+        />
         {isLoading || error ? (
           <p className="error">
             {error ? error : "we are setting up things for you..."}
@@ -77,7 +93,9 @@ const Buses = () => {
                 return (
                   <tr {...row.getRowProps()}>
                     {row.cells.map((cell) => (
-                      <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+                      <td key={cell.id} {...cell.getCellProps()}>
+                        {cell.render("Cell")}
+                      </td>
                     ))}
                   </tr>
                 );
