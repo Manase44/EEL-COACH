@@ -1,26 +1,67 @@
 .portal-container {
   margin-left: 11rem;
 }
+
 .portal-main-content {
   margin-top: 1rem;
   padding: 0 1rem;
 }
+
 .main-content-label {
   width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
 .main-content-title {
   text-transform: capitalize;
   font-size: 15px;
 }
-tr {
-  display: flex;
-  gap: 1rem;
+
+/* TABLE */
+.display-table {
+  border-collapse: collapse;
+  margin: 25px 0;
+  font-size: 0.9em;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
 }
-th {
-  text-transform: capitalize;
+
+.display-table thead tr {
+  background-color: var(--main-color);
+  color: #fff;
+  font-weight: 600;
+}
+
+.display-table th,
+.display-table td {
+  text-align: center;
+  padding: 0.7rem 1rem;
+}
+
+.display-table tbody tr {
+  border-bottom: 1px solid var(--div-border);
+}
+
+.display-table tbody tr:nth-of-type(even) {
+  background-color: var(--div-color);
+}
+
+.display-table tbody tr:last-of-type {
+  border-bottom: 2px solid var(--main-color);
+}
+.amenities-display {
+  font-size: 1.2em;
+  margin: 0 5px;
+}
+
+.amenities-display.true {
+  color: var(--main-color);
+}
+
+.amenities-display.false {
+  color: red;
 }
 
 /* ADDING EMPLOYEE MODAL */
@@ -33,6 +74,7 @@ th {
   left: 40%;
   top: 10%;
 }
+
 .adding-employee-header {
   display: flex;
   justify-content: space-between;
@@ -40,29 +82,36 @@ th {
   gap: 1rem;
   margin-bottom: 1rem;
 }
+
 .adding-employee-header h3 {
   text-transform: capitalize;
 }
+
 .adding-employee-header span {
   cursor: pointer;
 }
+
 .adding-employee-header span svg {
   font-size: 20px;
   fill: var(--main-color);
 }
+
 .adding-employee-header span svg:hover {
   fill: red;
 }
+
 dialog::backdrop {
   background-color: var(--div-color);
   opacity: 0.6;
 }
+
 .employee-number {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .employee-number .number {
   padding: 0 0.5rem;
   border-radius: var(--radius);
@@ -78,14 +127,17 @@ dialog::backdrop {
   gap: 1.5rem;
   justify-content: space-evenly;
 }
+
 input[type="checkbox"],
 .amenities-icon {
   cursor: pointer;
 }
+
 .amenities-icon {
   font-size: 20px;
   color: var(--main-color);
 }
+
 #busNumber {
   text-transform: uppercase;
 }

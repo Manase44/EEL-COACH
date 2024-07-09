@@ -7,6 +7,19 @@ import { useTable } from "react-table";
 import Modal from "../../../../components/modal/Modal";
 import BusForm from "./BusForm";
 import axios from "axios";
+import { GiCheckMark } from "react-icons/gi";
+import { GrClose } from "react-icons/gr";
+import { MdDeleteOutline } from "react-icons/md";
+import { RiEdit2Line } from "react-icons/ri";
+import { GoEye } from "react-icons/go";
+
+const AmenitiesValues = ({ value }) => {
+  return value ? (
+    <GiCheckMark className="amenities-display true" />
+  ) : (
+    <GrClose className="amenities-display false" />
+  );
+};
 
 const Buses = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
@@ -23,11 +36,31 @@ const Buses = () => {
     () => [
       { Header: "NUMBER PLATE", accessor: "busNumber" },
       { Header: "SEAT NUMBER", accessor: "numberOfSeats" },
-      { Header: "WIFI", accessor: "wifi" },
-      { Header: "AC", accessor: "ac" },
-      { Header: "CHARGING POINTS", accessor: "sockets" },
-      { Header: "ADJUSTABLE SEAT", accessor: "adjustableSeat" },
-      { Header: "LUGGAGE COMPARTMENT", accessor: "luggageCompartment" },
+      {
+        Header: "WIFI",
+        accessor: "wifi",
+        Cell: ({ cell: { value } }) => <AmenitiesValues value={value} />,
+      },
+      {
+        Header: "AC",
+        accessor: "ac",
+        Cell: ({ cell: { value } }) => <AmenitiesValues value={value} />,
+      },
+      {
+        Header: "CHARGING POINTS",
+        accessor: "sockets",
+        Cell: ({ cell: { value } }) => <AmenitiesValues value={value} />,
+      },
+      {
+        Header: "ADJUSTABLE SEAT",
+        accessor: "adjustableSeat",
+        Cell: ({ cell: { value } }) => <AmenitiesValues value={value} />,
+      },
+      {
+        Header: "LUGGAGE COMPARTMENT",
+        accessor: "luggageCompartment",
+        Cell: ({ cell: { value } }) => <AmenitiesValues value={value} />,
+      },
     ],
     [],
   );
@@ -94,7 +127,7 @@ const Buses = () => {
             {error ? error : "we are setting up things for you..."}
           </p>
         ) : (
-          <table {...getTableProps()}>
+          <table className="display-table" {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
@@ -103,6 +136,7 @@ const Buses = () => {
                       {column.render("Header")}
                     </th>
                   ))}
+                  <th>ACTIONS</th>
                 </tr>
               ))}
             </thead>
@@ -116,6 +150,9 @@ const Buses = () => {
                         {cell.render("Cell")}
                       </td>
                     ))}
+                    <td>
+                      <MdDeleteOutline />
+                    </td>
                   </tr>
                 );
               })}

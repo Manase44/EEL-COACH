@@ -62,7 +62,7 @@ const BusRoutes = () => {
             {error ? error : "we are setting up things for you..."}
           </p>
         ) : (
-          <table {...getTableProps()}>
+          <table className="display-table" {...getTableProps()}>
             <thead>
               {headerGroups.map((headerGroup) => (
                 <tr {...headerGroup.getHeaderGroupProps()}>
