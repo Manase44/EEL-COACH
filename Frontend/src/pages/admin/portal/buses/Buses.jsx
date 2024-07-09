@@ -1,13 +1,19 @@
 import "../Portal.css";
 import Aside from "../../../../components/aside/Aside";
 import AdminHeader from "../../../../components/adminHeader/AdminHeader";
+import doneSubmittingStore from "../../../../store/doneSubmitting.store";
 import { useEffect, useState, useMemo } from "react";
 import { useTable } from "react-table";
 import Modal from "../../../../components/modal/Modal";
+import BusForm from "./BusForm";
 import axios from "axios";
 
 const Buses = () => {
   const serverUrl = import.meta.env.VITE_SERVER_URL;
+  const doneSubmitting = doneSubmittingStore((state) => state.doneSubmitting);
+  const setDoneSubmitting = doneSubmittingStore(
+    (state) => state.setDoneSubmitting,
+  );
   const [allBuses, setAllBuses] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState();
@@ -65,10 +71,23 @@ const Buses = () => {
         <Modal
           open={openModal}
           close={() => {
+            setDoneSubmitting(false);
             setOpenModal(false);
           }}
           title="adding a bus"
-          content="This is the modal content"
+          content={
+            doneSubmitting ? (
+              <button
+                onClick={() => {
+                  setDoneSubmitting(false);
+                }}
+              >
+                add another bus
+              </button>
+            ) : (
+              <BusForm />
+            )
+          }
         />
         {isLoading || error ? (
           <p className="error">

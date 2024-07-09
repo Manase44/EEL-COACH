@@ -30,8 +30,8 @@ th {
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
   position: absolute;
-  left: 50%;
-  top: 30%;
+  left: 40%;
+  top: 10%;
 }
 .adding-employee-header {
   display: flex;
@@ -69,4 +69,23 @@ dialog::backdrop {
   background-color: var(--div-border);
   font-size: 20px;
   font-weight: 600;
+}
+
+/* BUS FORM */
+.amenities {
+  border: none;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: space-evenly;
+}
+input[type="checkbox"],
+.amenities-icon {
+  cursor: pointer;
+}
+.amenities-icon {
+  font-size: 20px;
+  color: var(--main-color);
+}
+#busNumber {
+  text-transform: uppercase;
 }

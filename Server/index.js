@@ -26,5 +26,7 @@ app.use("/admin/buses", bus);
 app.use("/booking", bookRoutes);
 
 app.listen(port, () => {
-  console.log(`The server is running successfully at port ${port}`);
+  console.log(
+    `The server is running successfully at port ${port} ${new Date()}`,
+  );
 });

@@ -171,7 +171,7 @@ const Book = () => {
                   </div>
                   <label htmlFor={`route${i}`}>
                     <p className="route-header">
-                      Regular (Ksh. <span>1, 200</span>)
+                      Regular (Ksh. <span>{route.price}</span>)
                     </p>
                     <div className="route-details">
                       <div className="from-location">

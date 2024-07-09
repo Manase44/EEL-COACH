@@ -16,7 +16,8 @@
   display: grid;
   margin-bottom: 1rem;
 }
-.form-input label {
+.form-input label,
+legend {
   text-transform: capitalize;
   font-size: 14px;
 }
